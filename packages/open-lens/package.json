@@ -211,6 +211,7 @@
   },
   "devDependencies": {
     "@electron/rebuild": "^3.2.10",
+    "@k8slens/eslint-config": "^6.5.0-alpha.3",
     "@k8slens/generate-tray-icons": "^6.5.0-alpha.5",
     "@k8slens/test-utils": "^1.0.0-alpha.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
