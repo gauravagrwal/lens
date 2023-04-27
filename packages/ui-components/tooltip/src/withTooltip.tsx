@@ -51,10 +51,12 @@ export function withTooltip<TargetProps>(
       );
     }
 
+    const ResolvedTarget = Target as React.FunctionComponent<TargetProps>;
+
     return (
-      <Target id={targetId} {...(targetProps as any)}>
+      <ResolvedTarget id={targetId} {...(targetProps as TargetProps)}>
         {targetChildren}
-      </Target>
+      </ResolvedTarget>
     );
   };
 
