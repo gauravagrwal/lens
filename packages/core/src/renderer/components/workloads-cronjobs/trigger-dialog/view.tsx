@@ -26,8 +26,7 @@ import showCheckedErrorNotificationInjectable from "../../notifications/show-che
 import showErrorNotificationInjectable from "../../notifications/show-error-notification.injectable";
 import type { JobApi } from "../../../../common/k8s-api/endpoints";
 
-export interface CronJobTriggerDialogProps extends Partial<DialogProps> {
-}
+export type CronJobTriggerDialogProps = Partial<DialogProps>;
 
 interface Dependencies {
   state: IObservableValue<CronJob | undefined>;

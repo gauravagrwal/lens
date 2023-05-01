@@ -17,7 +17,7 @@ export interface DetailedHelmRelease {
 export type RequestDetailedHelmRelease = (
   name: string,
   namespace: string
-) => AsyncResult<DetailedHelmRelease>;
+) => AsyncResult<DetailedHelmRelease, string>;
 
 const requestDetailedHelmReleaseInjectable = getInjectable({
   id: "request-detailed-helm-release",
@@ -38,12 +38,12 @@ const requestDetailedHelmReleaseInjectable = getInjectable({
 
       if (!release) {
         return {
-          callWasSuccessful: false,
+          isOk: false,
           error: `Release ${name} didn't exist in ${namespace} namespace.`,
         };
       }
 
-      return { callWasSuccessful: true, response: { release, details }};
+      return { isOk: true, value: { release, details }};
     };
   },
 });

@@ -6,18 +6,13 @@
 import type { IComputedValue } from "mobx";
 
 /**
- * The props for StatusBar item component
- */
-export interface StatusBarItemProps {}
-
-/**
  * The type defining the registration of a status bar item
  */
 export interface StatusBarComponents {
   /**
    * The component for this registrations
    */
-  Item: React.ComponentType<StatusBarItemProps>;
+  Item: React.ComponentType;
 
   /**
    * The side of the bottom bar to place this component.

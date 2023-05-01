@@ -20,6 +20,7 @@ export interface TooltipDecoratorProps {
   tooltipOverrideDisabled?: boolean;
   id?: string;
   children?: SingleOrMany<React.ReactNode>;
+  "data-testid"?: string;
 }
 
 export function withTooltip<TargetProps>(

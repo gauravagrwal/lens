@@ -105,7 +105,7 @@ describe("<NamespaceTreeView />", () => {
   let di: DiContainer;
   let render: DiRender;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     di = getDiForUnitTesting();
 
     di.override(hierarchicalNamespacesInjectable, () => [

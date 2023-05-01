@@ -35,13 +35,13 @@ const getHelmReleaseInjectable = getInjectable({
         "json",
       ]);
 
-      if (!result.callWasSuccessful) {
-        logger.warn(`Failed to exectute helm: ${result.error}`);
+      if (!result.isOk) {
+        logger.warn(`Failed to execute helm: ${result.error.message}`);
 
         return undefined;
       }
 
-      const release = json.parse(result.response);
+      const release = json.parse(result.value);
 
       if (!isObject(release) || Array.isArray(release)) {
         return undefined;
@@ -53,7 +53,7 @@ const getHelmReleaseInjectable = getInjectable({
         proxyKubeconfigPath,
       );
 
-      if (!resourcesResult.callWasSuccessful) {
+      if (!resourcesResult.isOk) {
         logger.warn(`Failed to get helm release resources: ${resourcesResult.error}`);
 
         return undefined;
@@ -61,7 +61,7 @@ const getHelmReleaseInjectable = getInjectable({
 
       return {
         ...release,
-        resources: resourcesResult.response,
+        resources: resourcesResult.value,
       };
     };
   },

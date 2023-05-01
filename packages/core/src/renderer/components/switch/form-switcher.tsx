@@ -6,7 +6,7 @@
 import React from "react";
 
 interface FormControlLabelProps {
-  control: React.ReactElement<any, any>;
+  control: React.ReactElement;
   label: React.ReactNode;
 }
 

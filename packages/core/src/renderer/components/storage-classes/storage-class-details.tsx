@@ -23,8 +23,7 @@ import storageClassStoreInjectable from "./store.injectable";
 import persistentVolumeStoreInjectable from "../storage-volumes/store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface StorageClassDetailsProps extends KubeObjectDetailsProps<StorageClass> {
-}
+export type StorageClassDetailsProps = KubeObjectDetailsProps<StorageClass>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;
@@ -83,7 +82,7 @@ class NonInjectedStorageClassDetails extends React.Component<StorageClassDetails
             <DrawerTitle>Parameters</DrawerTitle>
             {
               Object.entries(parameters).map(([name, value]) => (
-                <DrawerItem key={name + value} name={startCase(name)}>
+                <DrawerItem key={`${name}${value ?? ""}`} name={startCase(name)}>
                   {value}
                 </DrawerItem>
               ))

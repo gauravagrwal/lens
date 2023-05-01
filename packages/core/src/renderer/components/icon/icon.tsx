@@ -158,7 +158,7 @@ export interface BaseIconProps {
   "data-testid"?: string;
 }
 
-export interface IconProps extends React.HTMLAttributes<any>, BaseIconProps {}
+export interface IconProps extends React.HTMLAttributes<Element>, BaseIconProps {}
 
 export function isSvg(content: string): boolean {
   // source code of the asset
@@ -189,7 +189,7 @@ const RawIcon = (props: IconProps & Dependencies) => {
       onClick?.(event);
     }
   };
-  const boundOnKeyDown = (event: React.KeyboardEvent<any>) => {
+  const boundOnKeyDown = (event: React.KeyboardEvent) => {
     switch (event.nativeEvent.code) {
       case "Space":
 
@@ -213,7 +213,7 @@ const RawIcon = (props: IconProps & Dependencies) => {
     onClick: isInteractive ? boundOnClick : undefined,
     onKeyDown: isInteractive ? boundOnKeyDown : undefined,
     tabIndex: isInteractive && focusable && !disabled ? 0 : undefined,
-    style: size ? { "--size": size + (isNumber(size) ? "px" : "") } as React.CSSProperties : undefined,
+    style: size ? { "--size": `${size}${isNumber(size) ? "px" : ""}` } as React.CSSProperties : undefined,
     ...elemProps,
   };
 

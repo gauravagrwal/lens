@@ -19,9 +19,9 @@ describe("cluster - order of sidebar items", () => {
   beforeEach(() => {
     builder = getApplicationBuilder();
 
-    builder.setEnvironmentToClusterFrame();
+    await builder.setEnvironmentToClusterFrame();
 
-    builder.beforeWindowStart(({ windowDi }) => {
+    await builder.beforeWindowStart(({ windowDi }) => {
       runInAction(() => {
         windowDi.register(testSidebarItemsInjectable);
       });

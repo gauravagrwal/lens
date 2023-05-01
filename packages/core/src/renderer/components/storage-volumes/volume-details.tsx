@@ -23,8 +23,7 @@ import getDetailsUrlInjectable from "../kube-detail-params/get-details-url.injec
 import persistentVolumeClaimApiInjectable from "../../../common/k8s-api/endpoints/persistent-volume-claim.api.injectable";
 import storageClassApiInjectable from "../../../common/k8s-api/endpoints/storage-class.api.injectable";
 
-export interface PersistentVolumeDetailsProps extends KubeObjectDetailsProps<PersistentVolume> {
-}
+export type PersistentVolumeDetailsProps = KubeObjectDetailsProps<PersistentVolume>;
 
 interface Dependencies {
   logger: Logger;

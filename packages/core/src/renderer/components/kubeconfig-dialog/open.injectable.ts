@@ -4,7 +4,7 @@
  */
 import { getInjectable } from "@ogre-tools/injectable";
 import type React from "react";
-import { loggerInjectionToken } from "@k8slens/logger";
+import { prefixedLoggerInjectable } from "@k8slens/logger";
 import showCheckedErrorNotificationInjectable from "../notifications/show-checked-error.injectable";
 import kubeconfigDialogStateInjectable from "./state.injectable";
 
@@ -20,17 +20,17 @@ const openKubeconfigDialogInjectable = getInjectable({
   instantiate: (di): OpenKubeconfigDialog => {
     const state = di.inject(kubeconfigDialogStateInjectable);
     const showCheckedErrorNotification = di.inject(showCheckedErrorNotificationInjectable);
-    const logger = di.inject(loggerInjectionToken);
+    const logger = di.inject(prefixedLoggerInjectable, "KUBE-CONFIG-DIALOG");
 
     return ({ title, loader }) => {
-      (async () => {
+      void (async () => {
         try {
           const config = await loader();
 
           state.set({ title, config });
         } catch (error) {
-          showCheckedErrorNotification(error, "Failed to retrive config for dialog");
-          logger.warn("[KUBEOCONFIG-DIALOG]: failed to retrived config for dialog", error);
+          showCheckedErrorNotification(error, "Failed to retrieved config for dialog");
+          logger.warn("failed to retrieved config for dialog", error);
         }
       })();
     };

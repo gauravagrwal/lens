@@ -16,8 +16,7 @@ import type { Logger } from "@k8slens/logger";
 import { withInjectables } from "@ogre-tools/injectable-react";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface LimitRangeDetailsProps extends KubeObjectDetailsProps<LimitRange> {
-}
+export type LimitRangeDetailsProps = KubeObjectDetailsProps<LimitRange>;
 
 function renderLimit(limit: LimitRangeItem, part: LimitPart, resource: Resource) {
 

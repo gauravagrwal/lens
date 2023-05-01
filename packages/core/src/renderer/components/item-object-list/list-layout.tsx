@@ -8,11 +8,11 @@ import "./item-list-layout.scss";
 import type { ReactNode } from "react";
 import React from "react";
 import type { IComputedValue } from "mobx";
-import { computed, makeObservable, untracked } from "mobx";
+import { action, computed, makeObservable, untracked } from "mobx";
 import type { ConfirmDialogParams } from "../confirm-dialog";
 import type { TableCellProps, TableProps, TableRowProps, TableSortCallbacks } from "../table";
 import type { IClassName, SingleOrMany } from "@k8slens/utilities";
-import { cssNames, noop } from "@k8slens/utilities";
+import { isFunction, cssNames, noop } from "@k8slens/utilities";
 import type { AddRemoveButtonsProps } from "../add-remove-buttons";
 import type { ItemObject } from "@k8slens/list-layout";
 import type { SearchInputUrlProps } from "../input";
@@ -181,7 +181,7 @@ class NonInjectedItemListLayout<I extends ItemObject, PreLoadStores extends bool
     autoBindReact(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { isConfigurable, tableId, preloadStores } = this.props;
 
     if (isConfigurable && !tableId) {
@@ -192,7 +192,7 @@ class NonInjectedItemListLayout<I extends ItemObject, PreLoadStores extends bool
       const { store, dependentStores = [] } = this.props;
       const stores = Array.from(new Set([store, ...dependentStores])) as ItemListStore<I, true>[];
 
-      stores.forEach(store => store.loadAll(this.props.selectedFilterNamespaces.get()));
+      stores.forEach(store => void store.loadAll(this.props.selectedFilterNamespaces.get()));
     }
   }
 
@@ -215,9 +215,9 @@ class NonInjectedItemListLayout<I extends ItemObject, PreLoadStores extends bool
     return activeFilters;
   }
 
-  toggleFilters() {
+  toggleFilters = action(() => {
     this.showFilters = !this.showFilters;
-  }
+  });
 
   @computed get isReady() {
     return this.props.isReady ?? this.props.store.isLoaded;
@@ -290,7 +290,7 @@ class NonInjectedItemListLayout<I extends ItemObject, PreLoadStores extends bool
           showHeader={this.props.showHeader}
           headerClassName={this.props.headerClassName}
           renderHeaderTitle={(
-            typeof renderHeaderTitle === "function"
+            isFunction(renderHeaderTitle)
               ? () => renderHeaderTitle(this)
               : renderHeaderTitle
           )}

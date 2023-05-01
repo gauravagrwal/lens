@@ -23,8 +23,7 @@ import type { ShowCheckedErrorNotification } from "../../notifications/show-chec
 import showCheckedErrorNotificationInjectable from "../../notifications/show-checked-error.injectable";
 import type { DeploymentApi } from "../../../../common/k8s-api/endpoints";
 
-export interface DeploymentScaleDialogProps extends Partial<DialogProps> {
-}
+export type DeploymentScaleDialogProps = Partial<DialogProps>;
 
 interface Dependencies {
   deploymentApi: DeploymentApi;

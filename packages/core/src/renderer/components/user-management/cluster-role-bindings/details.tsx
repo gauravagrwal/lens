@@ -25,8 +25,7 @@ import openClusterRoleBindingDialogInjectable from "./dialog/open.injectable";
 import clusterRoleBindingStoreInjectable from "./store.injectable";
 import autoBindReact from "auto-bind/react";
 
-export interface ClusterRoleBindingDetailsProps extends KubeObjectDetailsProps<ClusterRoleBinding> {
-}
+export type ClusterRoleBindingDetailsProps = KubeObjectDetailsProps<ClusterRoleBinding>;
 
 interface Dependencies {
   openConfirmDialog: OpenConfirmDialog;
@@ -43,7 +42,7 @@ class NonInjectedClusterRoleBindingDetails extends React.Component<ClusterRoleBi
     autoBindReact(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     disposeOnUnmount(this, [
       reaction(() => this.props.object, () => {
         this.selectedSubjects.clear();
@@ -127,7 +126,7 @@ class NonInjectedClusterRoleBindingDetails extends React.Component<ClusterRoleBi
 
         <AddRemoveButtons
           onAdd={() => openClusterRoleBindingDialog(clusterRoleBinding)}
-          onRemove={selectedSubjects.size ? this.removeSelectedSubjects : undefined}
+          onRemove={selectedSubjects.size ? () => this.removeSelectedSubjects() : undefined}
           addTooltip={`Add bindings to ${roleRef.name}`}
           removeTooltip={`Remove selected bindings from ${roleRef.name}`}
         />

@@ -16,8 +16,7 @@ import type { Logger } from "@k8slens/logger";
 import { withInjectables } from "@ogre-tools/injectable-react";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface IngressDetailsProps extends KubeObjectDetailsProps<Ingress> {
-}
+export type IngressDetailsProps = KubeObjectDetailsProps<Ingress>;
 
 interface Dependencies {
   logger: Logger;
@@ -121,7 +120,7 @@ class NonInjectedIngressDetails extends React.Component<IngressDetailsProps & De
         )}
         {port && (
           <DrawerItem name="Service">
-            {`${port.serviceName}:${port.servicePort}`}
+            {`${port.serviceName ?? ""}:${port.servicePort ?? ""}`}
           </DrawerItem>
         )}
         <DrawerTitle>Rules</DrawerTitle>

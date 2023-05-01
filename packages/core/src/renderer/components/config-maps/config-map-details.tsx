@@ -22,8 +22,7 @@ import showErrorNotificationInjectable from "../notifications/show-error-notific
 import { loggerInjectionToken } from "@k8slens/logger";
 import { MonacoEditor } from "../monaco-editor";
 
-export interface ConfigMapDetailsProps extends KubeObjectDetailsProps<ConfigMap> {
-}
+export type ConfigMapDetailsProps = KubeObjectDetailsProps<ConfigMap>;
 
 interface Dependencies {
   configMapStore: ConfigMapStore;

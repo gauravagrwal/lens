@@ -2,13 +2,18 @@
  * Copyright (c) OpenLens Authors. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
+<<<<<<< HEAD
 import { getInjectable } from "@ogre-tools/injectable";
 import { kubeApiInjectionToken } from "../kube-api/kube-api-injection-token";
 import { loggerInjectionToken } from "@k8slens/logger";
+=======
+import { getKubeApiInjectable } from "../kube-api/kube-api-injection-token";
+import loggerInjectable from "../../logger.injectable";
+>>>>>>> dd73b4dc8c (chore: Improve linting within @k8slens/core)
 import maybeKubeApiInjectable from "../maybe-kube-api.injectable";
 import { ReplicationControllerApi } from "./replication-controller.api";
 
-const replicationControllerApiInjectable = getInjectable({
+const replicationControllerApiInjectable = getKubeApiInjectable({
   id: "replication-controller-api",
   instantiate: (di) => {
     return new ReplicationControllerApi({
@@ -16,8 +21,6 @@ const replicationControllerApiInjectable = getInjectable({
       maybeKubeApi: di.inject(maybeKubeApiInjectable),
     });
   },
-
-  injectionToken: kubeApiInjectionToken,
 });
 
 export default replicationControllerApiInjectable;

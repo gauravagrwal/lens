@@ -9,8 +9,7 @@ import React from "react";
 import { cssNames } from "@k8slens/utilities";
 import { withTooltip } from "@k8slens/tooltip";
 
-export interface StatusBrickProps extends React.HTMLAttributes<HTMLDivElement> {
-}
+export type StatusBrickProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const StatusBrick = withTooltip(({ className, ...elemProps }: StatusBrickProps) => (
   <div

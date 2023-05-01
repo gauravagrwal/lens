@@ -18,8 +18,7 @@ import type { ShowNotification } from "../notifications";
 import { Slider } from "../slider";
 import type { ReplicationControllerApi } from "../../../common/k8s-api/endpoints";
 
-export interface ReplicationControllerDetailsProps extends KubeObjectDetailsProps<ReplicationController> {
-}
+export type ReplicationControllerDetailsProps = KubeObjectDetailsProps<ReplicationController>;
 
 interface Dependencies {
   api: ReplicationControllerApi;
@@ -52,7 +51,7 @@ class NonInjectedReplicationControllerDetails<Props extends ReplicationControlle
   }
 
   @action
-  async onScaleSliderChangeCommitted(evt: React.FormEvent<any>, replicas: number) {
+  async onScaleSliderChangeCommitted(evt: React.FormEvent<unknown>, replicas: number) {
     this.sliderReplicasDisabled = true;
     await this.scale(replicas);
     this.sliderReplicasDisabled = false;
@@ -77,7 +76,7 @@ class NonInjectedReplicationControllerDetails<Props extends ReplicationControlle
               disabled={this.sliderReplicasDisabled}
               value={this.sliderReplicasValue}
               onChange={(evt, value) => this.sliderReplicasValue = value}
-              onChangeCommitted={(event, value) => this.onScaleSliderChangeCommitted(event, value as number)}
+              onChangeCommitted={(event, value) => void this.onScaleSliderChangeCommitted(event, value as number)}
             />
           </div>
         </DrawerItem>

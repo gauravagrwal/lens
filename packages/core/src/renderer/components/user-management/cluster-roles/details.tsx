@@ -12,8 +12,7 @@ import { DrawerTitle } from "../../drawer";
 import type { KubeObjectDetailsProps } from "../../kube-object-details";
 import type { ClusterRole } from "@k8slens/kube-object";
 
-export interface ClusterRoleDetailsProps extends KubeObjectDetailsProps<ClusterRole> {
-}
+export type ClusterRoleDetailsProps = KubeObjectDetailsProps<ClusterRole>;
 
 @observer
 export class ClusterRoleDetails extends React.Component<ClusterRoleDetailsProps> {

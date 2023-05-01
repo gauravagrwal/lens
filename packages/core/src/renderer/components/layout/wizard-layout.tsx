@@ -9,7 +9,7 @@ import { observer } from "mobx-react";
 import type { IClassName } from "@k8slens/utilities";
 import { cssNames } from "@k8slens/utilities";
 
-export interface WizardLayoutProps extends React.DOMAttributes<any> {
+export interface WizardLayoutProps extends React.DOMAttributes<Element> {
   className?: IClassName;
   header?: React.ReactNode;
   headerClass?: IClassName;

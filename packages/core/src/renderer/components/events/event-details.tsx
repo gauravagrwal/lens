@@ -23,8 +23,7 @@ import getDetailsUrlInjectable from "../kube-detail-params/get-details-url.injec
 import { cssNames } from "@k8slens/utilities";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface EventDetailsProps extends KubeObjectDetailsProps<KubeEvent> {
-}
+export type EventDetailsProps = KubeObjectDetailsProps<KubeEvent>;
 
 interface Dependencies {
   getDetailsUrl: GetDetailsUrl;

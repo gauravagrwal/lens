@@ -30,8 +30,7 @@ import { NamespaceTreeView } from "./namespace-tree-view";
 import namespaceStoreInjectable from "./store.injectable";
 import type { NamespaceStore } from "./store";
 
-export interface NamespaceDetailsProps extends KubeObjectDetailsProps<Namespace> {
-}
+export type NamespaceDetailsProps = KubeObjectDetailsProps<Namespace>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

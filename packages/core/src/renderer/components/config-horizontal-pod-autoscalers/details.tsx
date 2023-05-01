@@ -25,8 +25,7 @@ import { loggerInjectionToken } from "@k8slens/logger";
 import getHorizontalPodAutoscalerMetrics from "./get-metrics.injectable";
 import { getMetricName } from "./get-metric-name";
 
-export interface HpaDetailsProps extends KubeObjectDetailsProps<HorizontalPodAutoscaler> {
-}
+export type HpaDetailsProps = KubeObjectDetailsProps<HorizontalPodAutoscaler>;
 
 interface Dependencies {
   apiManager: ApiManager;

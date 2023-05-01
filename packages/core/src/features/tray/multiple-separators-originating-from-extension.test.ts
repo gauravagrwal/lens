@@ -12,7 +12,7 @@ describe("multiple separators originating from extension", () => {
   beforeEach(async () => {
     builder = getApplicationBuilder();
 
-    builder.beforeApplicationStart(({ mainDi }) => {
+    await builder.beforeApplicationStart(({ mainDi }) => {
       mainDi.unoverride(getRandomIdInjectable);
       mainDi.permitSideEffects(getRandomIdInjectable);
     });
@@ -31,7 +31,7 @@ describe("multiple separators originating from extension", () => {
     };
 
     expect(() => {
-      builder.extensions.enable(someExtension);
+      await builder.extensions.enable(someExtension);
     }).not.toThrow();
   });
 });

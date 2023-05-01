@@ -40,18 +40,18 @@ const requestApiResourcesInjectable = getInjectable({
         const result = await backoffCaller(() => apiVersionRequester.request(cluster), {
           onIntermediateError: (error, attempt) => {
             broadcastConnectionUpdate({
-              message: `Failed to list kube API resource kinds, attempt ${attempt}: ${error}`,
+              message: `Failed to list kube API resource kinds, attempt ${attempt}: ${String(error)}`,
               level: "warning",
             });
-            logger.warn(`[LIST-API-RESOURCES]: failed to list kube api resources: ${error}`, { attempt, clusterId: cluster.id });
+            logger.warn(`[LIST-API-RESOURCES]: failed to list kube api resources: ${String(error)}`, { attempt, clusterId: cluster.id });
           },
         });
 
-        if (!result.callWasSuccessful) {
+        if (!result.isOk) {
           return result;
         }
 
-        groupLists.push(...result.response);
+        groupLists.push(...result.value);
       }
 
       const apiResourceRequests = groupLists.map(async listGroup => (
@@ -61,7 +61,7 @@ const requestApiResourcesInjectable = getInjectable({
       const resources: KubeApiResource[] = [];
 
       for (const result of results) {
-        if (!result.callWasSuccessful) {
+        if (!result.isOk) {
           broadcastConnectionUpdate({
             message: `Kube APIs under "${result.listGroup.path}" may not be displayed`,
             level: "warning",
@@ -69,12 +69,12 @@ const requestApiResourcesInjectable = getInjectable({
           continue;
         }
 
-        resources.push(...result.response);
+        resources.push(...result.value);
       }
 
       return {
-        callWasSuccessful: true,
-        response: resources,
+        isOk: true,
+        value: resources,
       };
     };
   },

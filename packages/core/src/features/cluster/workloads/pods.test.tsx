@@ -17,14 +17,14 @@ import apiManagerInjectable from "../../../common/k8s-api/api-manager/manager.in
 
 describe("workloads / pods", () => {
   let rendered: RenderResult;
-  let applicationBuilder: ApplicationBuilder;
+  let builder: ApplicationBuilder;
   const podMetrics: PodMetrics[] = [];
 
-  beforeEach(() => {
-    applicationBuilder = getApplicationBuilder().setEnvironmentToClusterFrame();
-    applicationBuilder.namespaces.add("default");
-    applicationBuilder.beforeWindowStart(({ windowDi }) => {
-      applicationBuilder.allowKubeResource({
+  beforeEach(async () => {
+    builder = await getApplicationBuilder().setEnvironmentToClusterFrame();
+    builder.namespaces.add("default");
+    await builder.beforeWindowStart(({ windowDi }) => {
+      builder.allowKubeResource({
         apiName: "pods",
         group: "",
       });
@@ -43,7 +43,7 @@ describe("workloads / pods", () => {
   describe("when navigating to workloads / pods view", () => {
     describe("given pods are loading", () => {
       beforeEach(async () => {
-        applicationBuilder.afterWindowStart(({ windowDi }) => {
+        await builder.afterWindowStart(({ windowDi }) => {
           const podStore = windowDi.inject(podStoreInjectable);
 
           podStore.items.clear();
@@ -51,8 +51,8 @@ describe("workloads / pods", () => {
           podStore.isLoading = true;
         });
 
-        rendered = await applicationBuilder.render();
-        applicationBuilder.navigateWith(navigateToPodsInjectable);
+        rendered = await builder.render();
+        builder.navigateWith(navigateToPodsInjectable);
       });
 
       it("renders", () => {
@@ -66,15 +66,15 @@ describe("workloads / pods", () => {
 
     describe("given no pods", () => {
       beforeEach(async () => {
-        applicationBuilder.afterWindowStart(({ windowDi }) => {
+        await builder.afterWindowStart(({ windowDi }) => {
           const podStore = windowDi.inject(podStoreInjectable);
 
           podStore.items.clear();
           podStore.isLoaded = true;
         });
 
-        rendered = await applicationBuilder.render();
-        applicationBuilder.navigateWith(navigateToPodsInjectable);
+        rendered = await builder.render();
+        builder.navigateWith(navigateToPodsInjectable);
       });
 
       it("renders", () => {
@@ -88,7 +88,7 @@ describe("workloads / pods", () => {
 
     describe("given a namespace has pods", () => {
       beforeEach(async () => {
-        applicationBuilder.afterWindowStart(({ windowDi }) => {
+        await builder.afterWindowStart(({ windowDi }) => {
           windowDi.override(requestMetricsInjectable, () => (() => Promise.resolve({})) as unknown as RequestMetrics);
 
           const podStore = windowDi.inject(podStoreInjectable);
@@ -118,8 +118,8 @@ describe("workloads / pods", () => {
           podStore.isLoaded = true;
         });
 
-        rendered = await applicationBuilder.render();
-        applicationBuilder.navigateWith(navigateToPodsInjectable);
+        rendered = await builder.render();
+        builder.navigateWith(navigateToPodsInjectable);
       });
 
       it("renders", () => {

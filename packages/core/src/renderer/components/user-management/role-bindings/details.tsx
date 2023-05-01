@@ -23,8 +23,7 @@ import openRoleBindingDialogInjectable from "./dialog/open.injectable";
 import type { RoleBindingStore } from "./store";
 import roleBindingStoreInjectable from "./store.injectable";
 
-export interface RoleBindingDetailsProps extends KubeObjectDetailsProps<RoleBinding> {
-}
+export type RoleBindingDetailsProps = KubeObjectDetailsProps<RoleBinding>;
 
 interface Dependencies {
   openConfirmDialog: OpenConfirmDialog;
@@ -36,7 +35,7 @@ interface Dependencies {
 class NonInjectedRoleBindingDetails extends React.Component<RoleBindingDetailsProps & Dependencies> {
   private readonly selectedSubjects = new ObservableHashSet([], hashSubject);
 
-  async componentDidMount() {
+  componentDidMount() {
     disposeOnUnmount(this, [
       reaction(() => this.props.object, () => {
         this.selectedSubjects.clear();

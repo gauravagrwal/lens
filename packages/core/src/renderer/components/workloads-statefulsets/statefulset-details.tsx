@@ -25,8 +25,7 @@ import podStoreInjectable from "../workloads-pods/store.injectable";
 import statefulSetStoreInjectable from "./store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface StatefulSetDetailsProps extends KubeObjectDetailsProps<StatefulSet> {
-}
+export type StatefulSetDetailsProps = KubeObjectDetailsProps<StatefulSet>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

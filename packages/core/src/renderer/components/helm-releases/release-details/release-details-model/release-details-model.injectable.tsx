@@ -128,7 +128,7 @@ export class ReleaseDetailsModel {
         this.configuration.isSaving.set(false);
       });
 
-      if (!result.callWasSuccessful) {
+      if (!result.isOk) {
         this.dependencies.showCheckedErrorNotification(
           result.error,
           "Unknown error occurred while updating release",
@@ -170,7 +170,7 @@ export class ReleaseDetailsModel {
       namespace,
     );
 
-    if (!result.callWasSuccessful) {
+    if (!result.isOk) {
       runInAction(() => {
         this.loadingError.set(result.error);
       });
@@ -179,7 +179,7 @@ export class ReleaseDetailsModel {
     }
 
     runInAction(() => {
-      this.detailedRelease.set(result.response);
+      this.detailedRelease.set(result.value);
     });
 
     await this.loadConfiguration();

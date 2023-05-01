@@ -44,12 +44,12 @@ describe("showing details for helm release", () => {
   let showSuccessNotificationMock: jest.Mock;
   let showCheckedErrorNotificationMock: jest.Mock;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     testUsingFakeTime("2015-10-21T07:28:00Z");
 
     builder = getApplicationBuilder();
 
-    builder.setEnvironmentToClusterFrame();
+    await builder.setEnvironmentToClusterFrame();
 
     requestHelmReleasesMock = asyncFn();
     requestDetailedHelmReleaseMock = asyncFn();
@@ -63,7 +63,7 @@ describe("showing details for helm release", () => {
     showSuccessNotificationMock = jest.fn();
     showCheckedErrorNotificationMock = jest.fn();
 
-    builder.beforeWindowStart(({ windowDi }) => {
+    await builder.beforeWindowStart(({ windowDi }) => {
       windowDi.override(getRandomUpgradeChartTabIdInjectable, () => () => "some-tab-id");
       windowDi.override(showSuccessNotificationInjectable, () => showSuccessNotificationMock);
       windowDi.override(showCheckedErrorInjectable, () => showCheckedErrorNotificationMock);
@@ -81,7 +81,7 @@ describe("showing details for helm release", () => {
     builder.namespaces.add("some-other-namespace");
     builder.namespaces.add("some-third-namespace");
 
-    builder.afterWindowStart(() => {
+    await builder.afterWindowStart(() => {
       builder.namespaces.select("some-namespace");
       builder.namespaces.select("some-other-namespace");
     });
@@ -250,8 +250,8 @@ describe("showing details for helm release", () => {
             describe("when details for second release resolve", () => {
               beforeEach(async () => {
                 await requestDetailedHelmReleaseMock.resolve({
-                  callWasSuccessful: true,
-                  response: {
+                  isOk: true,
+                  value: {
                     release: {
                       appVersion: "some-app-version",
                       chart: "some-chart-1.0.0",
@@ -362,12 +362,12 @@ describe("showing details for helm release", () => {
           describe("when call for release resolves with error", () => {
             beforeEach(async () => {
               await requestDetailedHelmReleaseMock.resolve({
-                callWasSuccessful: false,
+                isOk: false,
                 error: "some-error",
               });
             });
 
-            it("renders", async () => {
+            it("renders", () => {
               expect(rendered.baseElement).toMatchSnapshot();
             });
 
@@ -391,8 +391,8 @@ describe("showing details for helm release", () => {
           describe("when call for release resolve with release", () => {
             beforeEach(async () => {
               await requestDetailedHelmReleaseMock.resolve({
-                callWasSuccessful: true,
-                response: {
+                isOk: true,
+                value: {
                   release: {
                     appVersion: "some-app-version",
                     chart: "some-chart-1.0.0",
@@ -636,7 +636,7 @@ describe("showing details for helm release", () => {
                           requestHelmReleaseConfigurationMock.mockClear();
 
                           await requestHelmReleaseUpdateMock.resolve({
-                            callWasSuccessful: true,
+                            isOk: true,
                           });
                         });
 
@@ -675,7 +675,7 @@ describe("showing details for helm release", () => {
                           requestHelmReleaseConfigurationMock.mockClear();
 
                           await requestHelmReleaseUpdateMock.resolve({
-                            callWasSuccessful: false,
+                            isOk: false,
                             error: "some-error",
                           });
                         });

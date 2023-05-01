@@ -127,6 +127,10 @@ export function isFunction(val: unknown): val is (...args: unknown[]) => unknown
   return typeof val === "function";
 }
 
+export function isArray(val: unknown): val is unknown[] {
+  return Array.isArray(val);
+}
+
 /**
  * Checks if the value in the second position is non-nullable
  */
@@ -196,14 +200,14 @@ export type ComputeOutputFormat<Format> = Format extends "string"
     ? Buffer
     : string | Buffer;
 
-export interface ChildProcessExecpetion<Format> extends ExecFileException {
+export interface ChildProcessException<Format> extends ExecFileException {
   stderr: ComputeOutputFormat<Format>;
   stdout: ComputeOutputFormat<Format>;
 }
 
 const isStringOrBuffer = (val: unknown): val is string | Buffer => isString(val) || isBuffer(val);
 
-export function isChildProcessError(error: unknown, format?: OutputFormat): error is ChildProcessExecpetion<typeof format> {
+export function isChildProcessError(error: unknown, format?: OutputFormat): error is ChildProcessException<typeof format> {
   if (!isExecFileException(error)) {
     return false;
   }

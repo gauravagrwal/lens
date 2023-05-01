@@ -98,6 +98,14 @@ export class KubeObjectStore<
 
   private readonly loadedNamespaces = observable.box<string[]>();
 
+  static create<Api>(
+    dependencies: KubeObjectStoreDependencies,
+    api: Api,
+    opts?: KubeObjectStoreOptions,
+  ): Api extends KubeApi<infer Kube, infer Data> ? KubeObjectStore<Kube, Api, Data> : never {
+    return new KubeObjectStore(dependencies, api as KubeApi, opts) as never;
+  }
+
   constructor(
     protected readonly dependencies: KubeObjectStoreDependencies,
     public readonly api: A,
@@ -298,7 +306,7 @@ export class KubeObjectStore<
     return items;
   }
 
-  protected resetOnError(error: any) {
+  protected resetOnError(error: unknown) {
     if (error) this.reset();
   }
 

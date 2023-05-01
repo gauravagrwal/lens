@@ -16,8 +16,10 @@ import podDisruptionBudgetStoreInjectable from "../store.injectable";
 import siblingTabsInjectable from "../../../routes/sibling-tabs.injectable";
 import { Cluster } from "../../../../common/cluster/cluster";
 import hostedClusterInjectable from "../../../cluster-frame-context/hosted-cluster.injectable";
-import userPreferencesStateInjectable from "../../../../features/user-preferences/common/state.injectable";
 import type { DiContainer } from "@ogre-tools/injectable";
+import { computed } from "mobx";
+import type { PodDisruptionBudgetStore } from "../store";
+import type { PodDisruptionBudgetApi } from "../../../../common/k8s-api/endpoints";
 
 describe("<PodDisruptionBudgets />", () => {
   let di: DiContainer;
@@ -38,19 +40,19 @@ describe("<PodDisruptionBudgets />", () => {
   const getPodDisruptionBudgetStoreInjectableMock = (pdb: PodDisruptionBudget) => ({
     api: {
       kind: "PodDisruptionBudget",
-    },
+    } as PodDisruptionBudgetApi,
     getByPath: () => pdb,
     getTotalCount: () => 1,
     contextItems: [pdb],
-    pickOnlySelected: (items: any[]) => items,
+    pickOnlySelected: (items) => items,
     isSelectedAll: () => false,
     isSelected: () => true,
-  }) as any;
+  }) as Partial<PodDisruptionBudgetStore> as PodDisruptionBudgetStore;
 
   beforeEach(() => {
     di = getDiForUnitTesting();
 
-    di.override(hostedClusterInjectable, () => new Cluster({
+    di.override(hostedClusterInjectable, () => Cluster.createForTestingOnly({
       contextName: "some-context-name",
       id: "some-cluster-id",
       kubeConfigPath: "/some-path-to-a-kubeconfig",
@@ -58,17 +60,10 @@ describe("<PodDisruptionBudgets />", () => {
     di.override(storesAndApisCanBeCreatedInjectable, () => true);
     di.override(selectedNamespacesStorageInjectable, () => ({
       get: () => ({}),
-    }) as any);
-    di.override(loggerInjectionToken, () => null);
-    di.override(maybeKubeApiInjectable, () => (() => null) as any);
-    di.override(siblingTabsInjectable, () => ({ get: () => [] } as any));
-    di.override(userPreferencesStateInjectable, () => ({
-      hiddenTableColumns: {
-        get: () => ({
-          has: () => false,
-        }),
-      } as any,
     }));
+    di.override(loggerInjectionToken, () => null);
+    di.override(maybeKubeApiInjectable, () => undefined);
+    di.override(siblingTabsInjectable, () => computed(() => []));
   });
 
   describe("PDB with minAvailable 0", () => {

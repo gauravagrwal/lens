@@ -13,8 +13,7 @@ import type { RuntimeClass } from "@k8slens/kube-object";
 import { Badge } from "../badge";
 import { RuntimeClassDetailsTolerations } from "./runtime-classes-details-tolerations";
 
-export interface RuntimeClassesDetailsProps extends KubeObjectDetailsProps<RuntimeClass> {
-}
+export type RuntimeClassesDetailsProps = KubeObjectDetailsProps<RuntimeClass>;
 
 @observer
 export class RuntimeClassesDetails extends React.Component<RuntimeClassesDetailsProps> {

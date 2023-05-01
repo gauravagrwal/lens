@@ -10,7 +10,7 @@ import React from "react";
 import { cssNames } from "@k8slens/utilities";
 import { Icon } from "../../../../renderer/components/icon";
 
-export interface RemovableItemProps extends DOMAttributes<any>{
+export interface RemovableItemProps extends DOMAttributes<Element>{
   icon?: string;
   onRemove: () => void;
   className?: string;

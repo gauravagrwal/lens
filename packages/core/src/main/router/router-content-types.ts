@@ -5,9 +5,9 @@
 import type { LensApiResult } from "./route";
 
 export interface LensApiResultContentType {
-  resultMapper: (result: LensApiResult<any>) => ({
+  resultMapper: (result: LensApiResult<unknown>) => ({
     statusCode: number;
-    content: any;
+    content: unknown;
     headers: Record<string, string>;
   });
 }

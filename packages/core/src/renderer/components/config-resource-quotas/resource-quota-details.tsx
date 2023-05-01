@@ -17,8 +17,7 @@ import type { Logger } from "@k8slens/logger";
 import { withInjectables } from "@ogre-tools/injectable-react";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface ResourceQuotaDetailsProps extends KubeObjectDetailsProps<ResourceQuota> {
-}
+export type ResourceQuotaDetailsProps = KubeObjectDetailsProps<ResourceQuota>;
 
 function transformUnit(name: string, value: string): number | undefined {
   if (name.includes("memory") || name.includes("storage")) {

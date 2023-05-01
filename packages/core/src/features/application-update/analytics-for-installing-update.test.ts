@@ -35,7 +35,7 @@ describe("analytics for installing update", () => {
 
     analyticsListenerMock = jest.fn();
 
-    builder.beforeApplicationStart(({ mainDi }) => {
+    await builder.beforeApplicationStart(({ mainDi }) => {
       mainDi.override(getBuildVersionInjectable, () => () => "42.0.0");
 
       checkForPlatformUpdatesMock = asyncFn();
@@ -118,10 +118,10 @@ describe("analytics for installing update", () => {
       });
     });
 
-    it("when checking for updates using tray, sends event to analytics for being checked from tray", async () => {
+    it("when checking for updates using tray, sends event to analytics for being checked from tray", () => {
       analyticsListenerMock.mockClear();
 
-      builder.tray.click("check-for-updates");
+      void builder.tray.click("check-for-updates");
 
       expect(analyticsListenerMock.mock.calls).toEqual([
         [
@@ -139,7 +139,7 @@ describe("analytics for installing update", () => {
 
     });
 
-    it("when checking for updates using application menu, sends event to analytics for being checked from application menu", async () => {
+    it("when checking for updates using application menu, sends event to analytics for being checked from application menu", () => {
       analyticsListenerMock.mockClear();
 
       builder.applicationMenu.click("root", "mac", "check-for-updates");
@@ -163,7 +163,7 @@ describe("analytics for installing update", () => {
       beforeEach(async () => {
         const processCheckingForUpdates = mainDi.inject(processCheckingForUpdatesInjectable);
 
-        processCheckingForUpdates("irrelevant");
+        void processCheckingForUpdates("irrelevant");
 
         analyticsListenerMock.mockClear();
 
@@ -200,7 +200,7 @@ describe("analytics for installing update", () => {
           beforeEach(() => {
             const processCheckingForUpdates = mainDi.inject(processCheckingForUpdatesInjectable);
 
-            processCheckingForUpdates("irrelevant");
+            void processCheckingForUpdates("irrelevant");
 
             analyticsListenerMock.mockClear();
           });

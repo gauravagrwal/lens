@@ -2,12 +2,11 @@
  * Copyright (c) OpenLens Authors. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-import { getInjectable } from "@ogre-tools/injectable";
 
 import type { ClusterOverviewStorageState } from "./cluster-overview-store";
 import { ClusterOverviewStore, MetricNodeRole, MetricType } from "./cluster-overview-store";
 import createStorageInjectable from "../../../utils/create-storage/create-storage.injectable";
-import { kubeObjectStoreInjectionToken } from "../../../../common/k8s-api/api-manager/kube-object-store-token";
+import { getKubeStoreInjectable } from "../../../../common/k8s-api/api-manager/kube-object-store-token";
 import clusterApiInjectable from "../../../../common/k8s-api/endpoints/cluster.api.injectable";
 import storesAndApisCanBeCreatedInjectable from "../../../stores-apis-can-be-created.injectable";
 import assert from "assert";
@@ -16,7 +15,7 @@ import requestClusterMetricsByNodeNamesInjectable from "../../../../common/k8s-a
 import clusterFrameContextForNamespacedResourcesInjectable from "../../../cluster-frame-context/for-namespaced-resources.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-const clusterOverviewStoreInjectable = getInjectable({
+const clusterOverviewStoreInjectable = getKubeStoreInjectable({
   id: "cluster-overview-store",
 
   instantiate: (di) => {
@@ -38,7 +37,6 @@ const clusterOverviewStoreInjectable = getInjectable({
       logger: di.inject(loggerInjectionToken),
     }, clusterApi);
   },
-  injectionToken: kubeObjectStoreInjectionToken,
 });
 
 export default clusterOverviewStoreInjectable;

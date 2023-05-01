@@ -23,17 +23,15 @@ import subscribeStoresInjectable from "../../kube-watch-api/subscribe-stores.inj
 import type { PodStore } from "../workloads-pods/store";
 import podStoreInjectable from "../workloads-pods/store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
-import loadPodsFromAllNamespacesInjectable
-  from "../workloads-pods/load-pods-from-all-namespaces.injectable";
+import loadPodsFromAllNamespacesInjectable from "../workloads-pods/load-pods-from-all-namespaces.injectable";
 
-export interface NodeDetailsProps extends KubeObjectDetailsProps<Node> {
-}
+export type NodeDetailsProps = KubeObjectDetailsProps<Node>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;
   podStore: PodStore;
   logger: Logger;
-  loadPodsFromAllNamespaces: () => void;
+  loadPodsFromAllNamespaces: () => Promise<void>;
 }
 
 @observer
@@ -45,7 +43,7 @@ class NonInjectedNodeDetails extends React.Component<NodeDetailsProps & Dependen
       ]),
     ]);
 
-    this.props.loadPodsFromAllNamespaces();
+    void this.props.loadPodsFromAllNamespaces();
   }
 
   render() {

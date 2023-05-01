@@ -9,8 +9,7 @@ import type { KubeObjectDetailsProps } from "../kube-object-details";
 import type { MutatingWebhookConfiguration } from "@k8slens/kube-object";
 import { WebhookConfig } from "./webhook-config";
 
-export interface MutatingWebhookDetailsProps extends KubeObjectDetailsProps<MutatingWebhookConfiguration> {
-}
+export type MutatingWebhookDetailsProps = KubeObjectDetailsProps<MutatingWebhookConfiguration>;
 
 @observer
 export class MutatingWebhookDetails extends React.Component<MutatingWebhookDetailsProps> {

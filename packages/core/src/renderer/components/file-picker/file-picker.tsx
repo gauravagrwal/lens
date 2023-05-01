@@ -81,7 +81,7 @@ const defaultProps = {
 
 @observer
 class DefaultedFilePicker extends React.Component<FilePickerProps & typeof defaultProps> {
-  static defaultProps = defaultProps as Object;
+  static defaultProps = defaultProps as object;
 
   @observable status = FileInputStatus.CLEAR;
   @observable errorText?: string;
@@ -214,7 +214,7 @@ class DefaultedFilePicker extends React.Component<FilePickerProps & typeof defau
           type="file"
           accept={accept}
           multiple={multiple}
-          onChange={(event) => this.handlePickFiles(event.target.files)}
+          onChange={(event) => void this.handlePickFiles(event.target.files)}
         />
       </div>
     );

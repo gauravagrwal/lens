@@ -15,8 +15,7 @@ import type { Logger } from "@k8slens/logger";
 import { withInjectables } from "@ogre-tools/injectable-react";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface EndpointsDetailsProps extends KubeObjectDetailsProps<Endpoints> {
-}
+export type EndpointsDetailsProps = KubeObjectDetailsProps<Endpoints>;
 
 interface Dependencies {
   logger: Logger;

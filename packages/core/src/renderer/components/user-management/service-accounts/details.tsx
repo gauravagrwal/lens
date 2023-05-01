@@ -22,8 +22,7 @@ import { withInjectables } from "@ogre-tools/injectable-react";
 import getDetailsUrlInjectable from "../../kube-detail-params/get-details-url.injectable";
 import secretStoreInjectable from "../../config-secrets/store.injectable";
 
-export interface ServiceAccountsDetailsProps extends KubeObjectDetailsProps<ServiceAccount> {
-}
+export type ServiceAccountsDetailsProps = KubeObjectDetailsProps<ServiceAccount>;
 
 interface Dependencies {
   secretStore: SecretStore;

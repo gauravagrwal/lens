@@ -11,8 +11,7 @@ import { DrawerItem } from "../drawer";
 import type { KubeObjectDetailsProps } from "../kube-object-details";
 import type { PriorityClass } from "@k8slens/kube-object";
 
-export interface PriorityClassesDetailsProps extends KubeObjectDetailsProps<PriorityClass> {
-}
+export type PriorityClassesDetailsProps = KubeObjectDetailsProps<PriorityClass>;
 
 @observer
 export class PriorityClassesDetails extends React.Component<PriorityClassesDetailsProps> {

@@ -12,8 +12,7 @@ import { Badge } from "../badge";
 import type { KubeObjectDetailsProps } from "../kube-object-details";
 import type { PodDisruptionBudget } from "@k8slens/kube-object";
 
-export interface PodDisruptionBudgetDetailsProps extends KubeObjectDetailsProps<PodDisruptionBudget> {
-}
+export type PodDisruptionBudgetDetailsProps = KubeObjectDetailsProps<PodDisruptionBudget>;
 
 export const PodDisruptionBudgetDetails = observer((props: PodDisruptionBudgetDetailsProps) => {
   const { object: pdb } = props;

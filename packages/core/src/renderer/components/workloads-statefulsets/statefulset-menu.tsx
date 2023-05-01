@@ -15,7 +15,7 @@ import type { ShowCheckedErrorNotification } from "../notifications/show-checked
 import showCheckedErrorNotificationInjectable from "../notifications/show-checked-error.injectable";
 import type { StatefulSetApi } from "../../../common/k8s-api/endpoints";
 
-export interface StatefulSetMenuProps extends KubeObjectMenuProps<StatefulSet> {}
+export type StatefulSetMenuProps = KubeObjectMenuProps<StatefulSet>;
 
 interface Dependencies {
   statefulSetApi: StatefulSetApi;

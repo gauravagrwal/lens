@@ -42,10 +42,10 @@ describe("installing helm chart from new tab", () => {
   let requestCreateHelmReleaseMock: AsyncFnMock<RequestCreateHelmRelease>;
   let requestHelmReleasesMock: AsyncFnMock<RequestHelmReleases>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     builder = getApplicationBuilder();
 
-    builder.setEnvironmentToClusterFrame();
+    await builder.setEnvironmentToClusterFrame();
 
     requestDetailedHelmReleaseMock = asyncFn();
     requestHelmChartsMock = asyncFn();
@@ -55,7 +55,7 @@ describe("installing helm chart from new tab", () => {
     requestCreateHelmReleaseMock = asyncFn();
     requestHelmReleasesMock = asyncFn();
 
-    builder.beforeWindowStart(({ windowDi }) => {
+    await builder.beforeWindowStart(({ windowDi }) => {
       windowDi.override(directoryForLensLocalStorageInjectable, () => "/some-directory-for-lens-local-storage");
       windowDi.override(requestDetailedHelmReleaseInjectable, () => requestDetailedHelmReleaseMock);
       windowDi.override(requestHelmChartsInjectable, () => requestHelmChartsMock);
@@ -185,8 +185,8 @@ describe("installing helm chart from new tab", () => {
         ]);
 
         await requestHelmChartReadmeMock.resolve({
-          callWasSuccessful: true,
-          response: "some-readme",
+          isOk: true,
+          value: "some-readme",
         });
       });
 
@@ -247,8 +247,8 @@ describe("installing helm chart from new tab", () => {
         describe("when default configuration and versions resolve", () => {
           beforeEach(async () => {
             await requestHelmChartValuesMock.resolve({
-              callWasSuccessful: true,
-              response: "some-default-configuration",
+              isOk: true,
+              value: "some-default-configuration",
             });
 
             await requestHelmChartVersionsMock.resolve([
@@ -486,8 +486,8 @@ describe("installing helm chart from new tab", () => {
               ]);
 
               await requestHelmChartReadmeMock.resolve({
-                callWasSuccessful: true,
-                response: "some-readme",
+                isOk: true,
+                value: "some-readme",
               });
             });
 
@@ -548,8 +548,8 @@ describe("installing helm chart from new tab", () => {
               describe("when configuration and versions resolve", () => {
                 beforeEach(async () => {
                   await requestHelmChartValuesMock.resolve({
-                    callWasSuccessful: true,
-                    response: "some-other-default-configuration",
+                    isOk: true,
+                    value: "some-other-default-configuration",
                   });
 
                   await requestHelmChartVersionsMock.resolve([]);
@@ -704,18 +704,22 @@ describe("installing helm chart from new tab", () => {
 
                 const actual = await readJsonFile(
                   "/some-directory-for-lens-local-storage/some-cluster-id.json",
-                ) as any;
+                );
 
-                const version = actual.install_charts["some-first-tab-id"].version;
-
-                expect(version).toBe("some-other-version");
+                expect(actual).toMatchObject({
+                  install_charts: {
+                    "some-first-tab-id": {
+                      version: "some-other-version",
+                    },
+                  },
+                });
               });
 
               describe("when default configuration resolves", () => {
                 beforeEach(async () => {
                   await requestHelmChartValuesMock.resolve({
-                    callWasSuccessful: true,
-                    response: "some-default-configuration-for-other-version",
+                    isOk: true,
+                    value: "some-default-configuration-for-other-version",
                   });
                 });
 
@@ -782,11 +786,15 @@ describe("installing helm chart from new tab", () => {
 
                 const actual = await readJsonFile(
                   "/some-directory-for-lens-local-storage/some-cluster-id.json",
-                ) as any;
+                );
 
-                const namespace = actual.install_charts["some-first-tab-id"].namespace;
-
-                expect(namespace).toBe("some-other-namespace");
+                expect(actual).toMatchObject({
+                  install_charts: {
+                    "some-first-tab-id": {
+                      namespace: "some-other-namespace",
+                    },
+                  },
+                });
               });
 
               it("when installing the chart, calls for installation with changed namespace", () => {
@@ -860,8 +868,8 @@ describe("installing helm chart from new tab", () => {
                 .selectOption("some-other-version");
 
               await requestHelmChartValuesMock.resolve({
-                callWasSuccessful: true,
-                response: "some-default-configuration-for-other-version",
+                isOk: true,
+                value: "some-default-configuration-for-other-version",
               });
 
               expect(installButton).not.toHaveAttribute("disabled");
@@ -896,11 +904,15 @@ describe("installing helm chart from new tab", () => {
 
               const actual = await readJsonFile(
                 "/some-directory-for-lens-local-storage/some-cluster-id.json",
-              ) as any;
+              );
 
-              const configuration = actual.install_charts["some-first-tab-id"].values;
-
-              expect(configuration).toBe("some-valid-configuration");
+              expect(actual).toMatchObject({
+                install_charts: {
+                  "some-first-tab-id": {
+                    values: "some-valid-configuration",
+                  },
+                },
+              });
             });
 
             it("does not show spinner", () => {
@@ -934,8 +946,8 @@ describe("installing helm chart from new tab", () => {
                 .selectOption("some-other-version");
 
               await requestHelmChartValuesMock.resolve({
-                callWasSuccessful: true,
-                response: "some-default-configuration-for-other-version",
+                isOk: true,
+                value: "some-default-configuration-for-other-version",
               });
 
               const input = rendered.getByTestId(
@@ -965,11 +977,15 @@ describe("installing helm chart from new tab", () => {
 
               const actual = await readJsonFile(
                 "/some-directory-for-lens-local-storage/some-cluster-id.json",
-              ) as any;
+              );
 
-              const customName = actual.install_charts["some-first-tab-id"].releaseName;
-
-              expect(customName).toBe("some-custom-name");
+              expect(actual).toMatchObject({
+                install_charts: {
+                  "some-first-tab-id": {
+                    releaseName: "some-custom-name",
+                  },
+                },
+              });
             });
 
             it("renders", () => {

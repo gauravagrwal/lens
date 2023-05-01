@@ -25,8 +25,7 @@ import showSuccessNotificationInjectable from "../notifications/show-success-not
 import type { ShowCheckedErrorNotification } from "../notifications/show-checked-error.injectable";
 import showCheckedErrorNotificationInjectable from "../notifications/show-checked-error.injectable";
 
-export interface SecretDetailsProps extends KubeObjectDetailsProps<Secret> {
-}
+export type SecretDetailsProps = KubeObjectDetailsProps<Secret>;
 
 interface Dependencies {
   secretStore: SecretStore;

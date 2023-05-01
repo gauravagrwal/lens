@@ -24,8 +24,7 @@ import type { ReplicaSetStore } from "./store";
 import replicaSetStoreInjectable from "./store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface ReplicaSetDetailsProps extends KubeObjectDetailsProps<ReplicaSet> {
-}
+export type ReplicaSetDetailsProps = KubeObjectDetailsProps<ReplicaSet>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

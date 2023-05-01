@@ -73,7 +73,7 @@ class NonInjectedClusterView extends React.Component<Dependencies> {
 
   bindEvents() {
     disposeOnUnmount(this, [
-      reaction(() => this.clusterId, async (clusterId) => {
+      reaction(() => this.clusterId, (clusterId) => {
         // TODO: replace with better handling
         if (!this.clusterId) {
           return;
@@ -85,7 +85,7 @@ class NonInjectedClusterView extends React.Component<Dependencies> {
 
         this.props.clusterFrames.setVisibleCluster(clusterId);
         this.props.clusterFrames.initView(clusterId);
-        this.props.requestClusterActivation({ clusterId });
+        void this.props.requestClusterActivation({ clusterId });
         this.props.entityRegistry.activeEntity = clusterId;
       }, {
         fireImmediately: true,

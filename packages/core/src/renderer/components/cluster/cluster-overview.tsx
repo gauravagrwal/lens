@@ -11,7 +11,7 @@ import { reaction } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
 import type { NodeStore } from "../nodes/store";
 import type { PodStore } from "../workloads-pods/store";
-import { interval } from "@k8slens/utilities";
+import { interval, noop } from "@k8slens/utilities";
 import { TabLayout } from "../layout/tab-layout";
 import { Spinner } from "../spinner";
 import { ClusterIssues } from "./cluster-issues";
@@ -43,12 +43,8 @@ interface Dependencies {
 
 @observer
 class NonInjectedClusterOverview extends React.Component<Dependencies> {
-  private readonly metricPoller = interval(60, async () => {
-    try {
-      await this.props.clusterOverviewStore.loadMetrics();
-    } catch {
-      // ignore
-    }
+  private readonly metricPoller = interval(60, () => {
+    this.props.clusterOverviewStore.loadMetrics().catch(noop);
   });
 
   componentDidMount() {

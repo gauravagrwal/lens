@@ -26,8 +26,7 @@ import replicaSetStoreInjectable from "../workloads-replicasets/store.injectable
 import deploymentStoreInjectable from "./store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface DeploymentDetailsProps extends KubeObjectDetailsProps<Deployment> {
-}
+export type DeploymentDetailsProps = KubeObjectDetailsProps<Deployment>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;
@@ -108,7 +107,7 @@ class NonInjectedDeploymentDetails extends React.Component<DeploymentDetailsProp
                     <>
                       <p>{message}</p>
                       <p>
-                        {`Last transition time: ${lastTransitionTime}`}
+                        {`Last transition time: ${lastTransitionTime ?? "<unknown>"}`}
                       </p>
                     </>
                   )} />

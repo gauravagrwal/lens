@@ -6,9 +6,10 @@ import { getInjectionToken } from "@ogre-tools/injectable";
 import type { IComputedValue } from "mobx";
 import type { KubeObjectDetailsProps } from "../kube-object-details";
 import type React from "react";
+import type { KubeObject } from "@k8slens/kube-object";
 
 export interface KubeObjectDetailItem {
-  Component: React.ElementType<KubeObjectDetailsProps<any>>;
+  Component: React.ElementType<KubeObjectDetailsProps<KubeObject>>;
   enabled: IComputedValue<boolean>;
   orderNumber: number;
 }

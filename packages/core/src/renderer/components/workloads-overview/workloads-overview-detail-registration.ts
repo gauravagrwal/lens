@@ -9,7 +9,7 @@ import type { IComputedValue } from "mobx";
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
 interface WorkloadsOverviewDetailComponents {
-  Details: React.ComponentType<{}>;
+  Details: React.ComponentType<Record<string, never>>;
 }
 
 export interface WorkloadsOverviewDetailRegistration {

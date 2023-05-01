@@ -8,10 +8,10 @@ import type React from "react";
 import type { PageTarget } from "../../routes/page-registration";
 import type { IComputedValue } from "mobx";
 
-export interface ClusterPageMenuRegistration {
+export interface ClusterPageMenuRegistration<Params = unknown> {
   id?: string;
   parentId?: string;
-  target?: PageTarget;
+  target?: PageTarget<Params>;
   title: React.ReactNode;
   components: ClusterPageMenuComponents;
   visible?: IComputedValue<boolean>;

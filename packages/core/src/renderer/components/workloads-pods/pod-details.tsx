@@ -31,8 +31,7 @@ import { loggerInjectionToken } from "@k8slens/logger";
 import { PodDetailsContainers } from "./details/containers/pod-details-containers";
 import { PodDetailsInitContainers } from "./details/containers/pod-details-init-containers";
 
-export interface PodDetailsProps extends KubeObjectDetailsProps<Pod> {
-}
+export type PodDetailsProps = KubeObjectDetailsProps<Pod>;
 
 interface Dependencies {
   getDetailsUrl: GetDetailsUrl;

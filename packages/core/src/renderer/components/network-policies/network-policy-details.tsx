@@ -18,8 +18,7 @@ import { isEmpty } from "lodash";
 import { withInjectables } from "@ogre-tools/injectable-react";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface NetworkPolicyDetailsProps extends KubeObjectDetailsProps<NetworkPolicy> {
-}
+export type NetworkPolicyDetailsProps = KubeObjectDetailsProps<NetworkPolicy>;
 
 interface Dependencies {
   logger: Logger;

@@ -26,8 +26,7 @@ import podStoreInjectable from "../workloads-pods/store.injectable";
 import jobStoreInjectable from "./store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface JobDetailsProps extends KubeObjectDetailsProps<Job> {
-}
+export type JobDetailsProps = KubeObjectDetailsProps<Job>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

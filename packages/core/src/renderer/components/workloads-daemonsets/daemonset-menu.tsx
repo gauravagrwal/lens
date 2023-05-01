@@ -15,7 +15,7 @@ import type { ShowCheckedErrorNotification } from "../notifications/show-checked
 import showCheckedErrorNotificationInjectable from "../notifications/show-checked-error.injectable";
 import type { DaemonSetApi } from "../../../common/k8s-api/endpoints";
 
-export interface DaemonSetMenuProps extends KubeObjectMenuProps<DaemonSet> {}
+export type DaemonSetMenuProps = KubeObjectMenuProps<DaemonSet>;
 
 interface Dependencies {
   daemonSetApi: DaemonSetApi;

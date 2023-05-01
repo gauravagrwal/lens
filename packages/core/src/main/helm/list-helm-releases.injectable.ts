@@ -4,9 +4,9 @@
  */
 import { getInjectable } from "@ogre-tools/injectable";
 import execHelmInjectable from "./exec-helm/exec-helm.injectable";
-import { toCamelCase, isObject } from "@k8slens/utilities";
+import { toCamelCase, isObject, isArray } from "@k8slens/utilities";
 
-export type ListHelmReleases = (pathToKubeconfig: string, namespace?: string) => Promise<Record<string, any>[]>;
+export type ListHelmReleases = (pathToKubeconfig: string, namespace?: string) => Promise<Record<string, unknown>[]>;
 
 const listHelmReleasesInjectable = getInjectable({
   id: "list-helm-releases",
@@ -32,13 +32,13 @@ const listHelmReleasesInjectable = getInjectable({
 
       const result = await execHelm(args);
 
-      if (!result.callWasSuccessful) {
+      if (!result.isOk) {
         throw result.error;
       }
 
-      const output = JSON.parse(result.response);
+      const output = JSON.parse(result.value) as unknown;
 
-      if (!Array.isArray(output) || output.length == 0) {
+      if (!isArray(output) || output.length == 0) {
         return [];
       }
 

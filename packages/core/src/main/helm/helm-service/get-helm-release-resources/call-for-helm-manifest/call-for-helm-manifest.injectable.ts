@@ -18,7 +18,7 @@ const callForHelmManifestInjectable = getInjectable({
       name: string,
       namespace: string,
       kubeconfigPath: string,
-    ): AsyncResult<(KubeJsonApiData | KubeJsonApiDataList)[]> => {
+    ): AsyncResult<(KubeJsonApiData | KubeJsonApiDataList)[], string> => {
       const result = await execHelm([
         "get",
         "manifest",
@@ -29,14 +29,14 @@ const callForHelmManifestInjectable = getInjectable({
         kubeconfigPath,
       ]);
 
-      if (!result.callWasSuccessful) {
-        return { callWasSuccessful: false, error: result.error.message };
+      if (!result.isOk) {
+        return { isOk: false, error: result.error.message };
       }
 
       return {
-        callWasSuccessful: true,
-        response: yaml
-          .loadAll(result.response)
+        isOk: true,
+        value: yaml
+          .loadAll(result.value)
           .filter((manifest) => !!manifest) as KubeJsonApiData[],
       };
     };

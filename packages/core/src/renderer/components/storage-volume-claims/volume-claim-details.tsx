@@ -23,8 +23,7 @@ import { stopPropagation } from "@k8slens/utilities";
 import storageClassApiInjectable from "../../../common/k8s-api/endpoints/storage-class.api.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface PersistentVolumeClaimDetailsProps extends KubeObjectDetailsProps<PersistentVolumeClaim> {
-}
+export type PersistentVolumeClaimDetailsProps = KubeObjectDetailsProps<PersistentVolumeClaim>;
 
 interface Dependencies {
   getDetailsUrl: GetDetailsUrl;

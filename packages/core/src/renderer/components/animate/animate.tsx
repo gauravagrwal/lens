@@ -51,7 +51,7 @@ const NonInjectedAnimate = (propsAndDeps: AnimateProps & Dependencies) => {
   const [showClassNameEnter, setShowClassNameEnter] = useState(false);
   const [showClassNameLeave, setShowClassNameLeave] = useState(false);
 
-  const contentElem = React.Children.only(children) as React.ReactElement<React.HTMLAttributes<any>>;
+  const contentElem = React.Children.only(children) as React.ReactElement<React.HTMLAttributes<Element>>;
   const classNames = cssNames("Animate", name, contentElem.props.className, {
     enter: showClassNameEnter,
     leave: showClassNameLeave,

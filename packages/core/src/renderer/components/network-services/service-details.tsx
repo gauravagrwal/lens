@@ -23,8 +23,7 @@ import subscribeStoresInjectable from "../../kube-watch-api/subscribe-stores.inj
 import endpointsStoreInjectable from "../network-endpoints/store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface ServiceDetailsProps extends KubeObjectDetailsProps<Service> {
-}
+export type ServiceDetailsProps = KubeObjectDetailsProps<Service>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

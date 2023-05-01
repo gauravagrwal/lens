@@ -23,8 +23,7 @@ import { withInjectables } from "@ogre-tools/injectable-react";
 import apiManagerInjectable from "../../../common/k8s-api/api-manager/manager.injectable";
 import getDetailsUrlInjectable from "../kube-detail-params/get-details-url.injectable";
 
-export interface VpaDetailsProps extends KubeObjectDetailsProps<VerticalPodAutoscaler> {
-}
+export type VpaDetailsProps = KubeObjectDetailsProps<VerticalPodAutoscaler>;
 
 interface Dependencies {
   apiManager: ApiManager;

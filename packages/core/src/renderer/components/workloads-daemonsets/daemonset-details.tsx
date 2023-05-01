@@ -25,8 +25,7 @@ import daemonSetStoreInjectable from "./store.injectable";
 import podStoreInjectable from "../workloads-pods/store.injectable";
 import { loggerInjectionToken } from "@k8slens/logger";
 
-export interface DaemonSetDetailsProps extends KubeObjectDetailsProps<DaemonSet> {
-}
+export type DaemonSetDetailsProps = KubeObjectDetailsProps<DaemonSet>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

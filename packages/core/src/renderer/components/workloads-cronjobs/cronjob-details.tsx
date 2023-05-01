@@ -26,8 +26,7 @@ import { loggerInjectionToken } from "@k8slens/logger";
 import type { GetDetailsUrl } from "../kube-detail-params/get-details-url.injectable";
 import getDetailsUrlInjectable from "../kube-detail-params/get-details-url.injectable";
 
-export interface CronJobDetailsProps extends KubeObjectDetailsProps<CronJob> {
-}
+export type CronJobDetailsProps = KubeObjectDetailsProps<CronJob>;
 
 interface Dependencies {
   subscribeStores: SubscribeStores;

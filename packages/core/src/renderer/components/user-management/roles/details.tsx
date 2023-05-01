@@ -12,8 +12,7 @@ import type { Role } from "@k8slens/kube-object";
 import { DrawerTitle } from "../../drawer";
 import type { KubeObjectDetailsProps } from "../../kube-object-details";
 
-export interface RoleDetailsProps extends KubeObjectDetailsProps<Role> {
-}
+export type RoleDetailsProps = KubeObjectDetailsProps<Role>;
 
 @observer
 export class RoleDetails extends React.Component<RoleDetailsProps> {
