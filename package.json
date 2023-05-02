@@ -1,11 +1,9 @@
 {
   "name": "lens-monorepo",
   "private": true,
-
   "workspaces": [
     "packages/**/*"
   ],
-
   "scripts": {
     "all:reinstall": "npm run clean:node_modules && npm run all:install",
     "all:install": "npx --yes --package npm@9.6.5 npm install",
@@ -32,6 +30,9 @@
     "bump-version": "lerna version --no-git-tag-version --no-push",
     "precreate-release-pr": "npm run --workspace @k8slens/release-tool build",
     "create-release-pr": "npm run --workspace @k8slens/release-tool create"
+  },
+  "engines": {
+    "npm": "^9"
   },
   "overrides": {
     "underscore": "^1.12.1",
