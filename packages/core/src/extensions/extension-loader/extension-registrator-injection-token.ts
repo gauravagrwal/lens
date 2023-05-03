@@ -7,7 +7,7 @@ import type { Injectable } from "@ogre-tools/injectable";
 import { getInjectionToken } from "@ogre-tools/injectable";
 import type { IComputedValue } from "mobx";
 
-export type Injectables = Injectable<unknown, unknown, unknown>[];
+export type Injectables = Injectable<unknown, unknown, void>[];
 export type Registration = Injectables | IComputedValue<Injectables>;
 export type ExtensionRegistrator = (extension: LegacyLensExtension) => Registration;
 
