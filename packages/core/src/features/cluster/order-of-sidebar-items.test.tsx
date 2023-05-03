@@ -16,7 +16,7 @@ describe("cluster - order of sidebar items", () => {
   let rendered: RenderResult;
   let builder: ApplicationBuilder;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     builder = getApplicationBuilder();
 
     await builder.setEnvironmentToClusterFrame();

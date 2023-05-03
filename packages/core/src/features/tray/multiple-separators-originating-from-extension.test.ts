@@ -30,7 +30,7 @@ describe("multiple separators originating from extension", () => {
       },
     };
 
-    expect(() => {
+    expect(async () => {
       await builder.extensions.enable(someExtension);
     }).not.toThrow();
   });

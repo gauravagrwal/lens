@@ -19,7 +19,7 @@ describe("cluster - visibility of sidebar items", () => {
   let builder: ApplicationBuilder;
   let rendered: RenderResult;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     builder = getApplicationBuilder();
 
     await builder.setEnvironmentToClusterFrame();
