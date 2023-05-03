@@ -11,24 +11,21 @@ import { WebhookConfig } from "./webhook-config";
 
 export type MutatingWebhookDetailsProps = KubeObjectDetailsProps<MutatingWebhookConfiguration>;
 
-@observer
-export class MutatingWebhookDetails extends React.Component<MutatingWebhookDetailsProps> {
-  render() {
-    const { object: webhookConfig } = this.props;
+export const MutatingWebhookDetails = observer((props: KubeObjectDetailsProps) => {
+  const webhookConfig = props.object as MutatingWebhookConfiguration;
 
-    return (
-      <div className="MutatingWebhookDetails">
-        <DrawerItem name="API version">
-          {webhookConfig.apiVersion}
-        </DrawerItem>
-        <DrawerTitle>Webhooks</DrawerTitle>
-        {webhookConfig.getWebhooks()?.length == 0 && (
-          <div style={{ opacity: 0.6 }}>No webhooks set</div>
-        )}
-        {webhookConfig.getWebhooks()?.map((webhook) => (
-          <WebhookConfig webhook={webhook} key={webhook.name} />
-        ))}
-      </div >
-    );
-  }
-}
+  return (
+    <div className="MutatingWebhookDetails">
+      <DrawerItem name="API version">
+        {webhookConfig.apiVersion}
+      </DrawerItem>
+      <DrawerTitle>Webhooks</DrawerTitle>
+      {webhookConfig.getWebhooks()?.length == 0 && (
+        <div style={{ opacity: 0.6 }}>No webhooks set</div>
+      )}
+      {webhookConfig.getWebhooks()?.map((webhook) => (
+        <WebhookConfig webhook={webhook} key={webhook.name} />
+      ))}
+    </div >
+  );
+});

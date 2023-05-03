@@ -12,55 +12,48 @@ import { DrawerTitle } from "../../drawer";
 import type { KubeObjectDetailsProps } from "../../kube-object-details";
 import type { ClusterRole } from "@k8slens/kube-object";
 
-export type ClusterRoleDetailsProps = KubeObjectDetailsProps<ClusterRole>;
+export const ClusterRoleDetails = observer((props: KubeObjectDetailsProps) => {
+  const clusterRole = props.object as ClusterRole;
+  const rules = clusterRole.getRules();
 
-@observer
-export class ClusterRoleDetails extends React.Component<ClusterRoleDetailsProps> {
-  render() {
-    const { object: clusterRole } = this.props;
-
-    if (!clusterRole) return null;
-    const rules = clusterRole.getRules();
-
-    return (
-      <div className="ClusterRoleDetails">
-        <DrawerTitle>Rules</DrawerTitle>
-        {rules.map(({ resourceNames, apiGroups, resources, verbs }, index) => {
-          return (
-            <div className="rule" key={index}>
-              {resources && (
-                <>
-                  <div className="name">Resources</div>
-                  <div className="value">{resources.join(", ")}</div>
-                </>
-              )}
-              {verbs && (
-                <>
-                  <div className="name">Verbs</div>
-                  <div className="value">{verbs.join(", ")}</div>
-                </>
-              )}
-              {apiGroups && (
-                <>
-                  <div className="name">Api Groups</div>
-                  <div className="value">
-                    {apiGroups
-                      .map(apiGroup => apiGroup === "" ? `'${apiGroup}'` : apiGroup)
-                      .join(", ")
-                    }
-                  </div>
-                </>
-              )}
-              {resourceNames && (
-                <>
-                  <div className="name">Resource Names</div>
-                  <div className="value">{resourceNames.join(", ")}</div>
-                </>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="ClusterRoleDetails">
+      <DrawerTitle>Rules</DrawerTitle>
+      {rules.map(({ resourceNames, apiGroups, resources, verbs }, index) => {
+        return (
+          <div className="rule" key={index}>
+            {resources && (
+              <>
+                <div className="name">Resources</div>
+                <div className="value">{resources.join(", ")}</div>
+              </>
+            )}
+            {verbs && (
+              <>
+                <div className="name">Verbs</div>
+                <div className="value">{verbs.join(", ")}</div>
+              </>
+            )}
+            {apiGroups && (
+              <>
+                <div className="name">Api Groups</div>
+                <div className="value">
+                  {apiGroups
+                    .map(apiGroup => apiGroup === "" ? `'${apiGroup}'` : apiGroup)
+                    .join(", ")
+                  }
+                </div>
+              </>
+            )}
+            {resourceNames && (
+              <>
+                <div className="name">Resource Names</div>
+                <div className="value">{resourceNames.join(", ")}</div>
+              </>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+});

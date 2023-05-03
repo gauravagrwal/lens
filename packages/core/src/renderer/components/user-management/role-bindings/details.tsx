@@ -48,7 +48,7 @@ class NonInjectedRoleBindingDetails extends React.Component<RoleBindingDetailsPr
     const { selectedSubjects } = this;
 
     openConfirmDialog({
-      ok: () => roleBindingStore.removeSubjects(roleBinding, selectedSubjects.toJSON()),
+      ok: () => void roleBindingStore.removeSubjects(roleBinding, selectedSubjects.toJSON()),
       labelOk: `Remove`,
       message: (
         <p>

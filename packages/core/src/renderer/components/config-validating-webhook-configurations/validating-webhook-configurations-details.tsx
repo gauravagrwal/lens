@@ -11,24 +11,21 @@ import type { ValidatingWebhookConfiguration } from "@k8slens/kube-object";
 
 export type ValidatingWebhookProps = KubeObjectDetailsProps<ValidatingWebhookConfiguration>;
 
-@observer
-export class ValidatingWebhookDetails extends React.Component<ValidatingWebhookProps> {
-  render() {
-    const { object: webhookConfig } = this.props;
+export const ValidatingWebhookDetails = observer((props: KubeObjectDetailsProps) => {
+  const webhookConfig = props.object as ValidatingWebhookConfiguration;
 
-    return (
-      <div className="ValidatingWebhookDetails">
-        <DrawerItem name="API version">
-          {webhookConfig.apiVersion}
-        </DrawerItem>
-        <DrawerTitle>Webhooks</DrawerTitle>
-        {webhookConfig.getWebhooks()?.length == 0 && (
-          <div style={{ opacity: 0.6 }}>No webhooks set</div>
-        )}
-        {webhookConfig.getWebhooks()?.map((webhook) => (
-          <WebhookConfig webhook={webhook} key={webhook.name} />
-        ))}
-      </div >
-    );
-  }
-}
+  return (
+    <div className="ValidatingWebhookDetails">
+      <DrawerItem name="API version">
+        {webhookConfig.apiVersion}
+      </DrawerItem>
+      <DrawerTitle>Webhooks</DrawerTitle>
+      {webhookConfig.getWebhooks()?.length == 0 && (
+        <div style={{ opacity: 0.6 }}>No webhooks set</div>
+      )}
+      {webhookConfig.getWebhooks()?.map((webhook) => (
+        <WebhookConfig webhook={webhook} key={webhook.name} />
+      ))}
+    </div >
+  );
+});

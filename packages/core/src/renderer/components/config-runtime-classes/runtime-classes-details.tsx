@@ -15,30 +15,25 @@ import { RuntimeClassDetailsTolerations } from "./runtime-classes-details-tolera
 
 export type RuntimeClassesDetailsProps = KubeObjectDetailsProps<RuntimeClass>;
 
-@observer
-export class RuntimeClassesDetails extends React.Component<RuntimeClassesDetailsProps> {
+export const RuntimeClassesDetails = observer((props: KubeObjectDetailsProps) => {
+  const runtimeClass = props.object as RuntimeClass;
+  const nodeSelector = runtimeClass.getNodeSelectors();
 
-  render() {
-    const { object: rc } = this.props;
-    const nodeSelector = rc.getNodeSelectors();
+  return (
+    <div className="RuntimeClassesDetails">
+      <DrawerItem name="Handler">
+        {runtimeClass.getHandler()}
+      </DrawerItem>
 
-    return (
-      <div className="RuntimeClassesDetails">
-        <DrawerItem name="Handler">
-          {rc.getHandler()}
-        </DrawerItem>
+      <DrawerItem name="Pod Fixed" hidden={runtimeClass.getPodFixed() === ""}>
+        {runtimeClass.getPodFixed()}
+      </DrawerItem>
 
-        <DrawerItem name="Pod Fixed" hidden={rc.getPodFixed() === ""}>
-          {rc.getPodFixed()}
-        </DrawerItem>
+      <DrawerItem name="Node Selector" hidden={nodeSelector.length === 0}>
+        {nodeSelector.map(label => <Badge key={label} label={label} />)}
+      </DrawerItem>
 
-        <DrawerItem name="Node Selector" hidden={nodeSelector.length === 0}>
-          {nodeSelector.map(label => <Badge key={label} label={label} />)}
-        </DrawerItem>
-
-        <RuntimeClassDetailsTolerations runtimeClass={rc} />
-
-      </div>
-    );
-  }
-}
+      <RuntimeClassDetailsTolerations runtimeClass={runtimeClass} />
+    </div>
+  );
+});

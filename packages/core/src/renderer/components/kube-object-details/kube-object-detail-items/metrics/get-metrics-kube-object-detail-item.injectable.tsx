@@ -29,7 +29,7 @@ export const getMetricsKubeObjectDetailItemInjectable = getInjectable({
         Component,
         enabled: di.inject(metricsDetailsComponentEnabledInjectable, metricResourceType),
         orderNumber: -1,
-      };
+      } as KubeObjectDetailItem;
     };
   },
 });

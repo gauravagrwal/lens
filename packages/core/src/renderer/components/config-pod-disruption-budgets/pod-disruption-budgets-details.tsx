@@ -12,16 +12,9 @@ import { Badge } from "../badge";
 import type { KubeObjectDetailsProps } from "../kube-object-details";
 import type { PodDisruptionBudget } from "@k8slens/kube-object";
 
-export type PodDisruptionBudgetDetailsProps = KubeObjectDetailsProps<PodDisruptionBudget>;
-
-export const PodDisruptionBudgetDetails = observer((props: PodDisruptionBudgetDetailsProps) => {
-  const { object: pdb } = props;
-
-  if (!pdb) {
-    return null;
-  }
-
-  const selectors = pdb.getSelectors();
+export const PodDisruptionBudgetDetails = observer((props: KubeObjectDetailsProps) => {
+  const podDisruptionBudget = props.object as PodDisruptionBudget;
+  const selectors = podDisruptionBudget.getSelectors();
 
   return (
     <div className="PdbDetails">
@@ -32,21 +25,20 @@ export const PodDisruptionBudgetDetails = observer((props: PodDisruptionBudgetDe
       )}
 
       <DrawerItem name="Min Available">
-        {pdb.getMinAvailable()}
+        {podDisruptionBudget.getMinAvailable()}
       </DrawerItem>
 
       <DrawerItem name="Max Unavailable">
-        {pdb.getMaxUnavailable()}
+        {podDisruptionBudget.getMaxUnavailable()}
       </DrawerItem>
 
       <DrawerItem name="Current Healthy">
-        {pdb.getCurrentHealthy()}
+        {podDisruptionBudget.getCurrentHealthy()}
       </DrawerItem>
 
       <DrawerItem name="Desired Healthy">
-        {pdb.getDesiredHealthy()}
+        {podDisruptionBudget.getDesiredHealthy()}
       </DrawerItem>
-
     </div>
   );
 });

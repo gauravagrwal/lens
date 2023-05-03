@@ -13,27 +13,22 @@ import type { PriorityClass } from "@k8slens/kube-object";
 
 export type PriorityClassesDetailsProps = KubeObjectDetailsProps<PriorityClass>;
 
-@observer
-export class PriorityClassesDetails extends React.Component<PriorityClassesDetailsProps> {
+export const PriorityClassesDetails = observer((props: KubeObjectDetailsProps) => {
+  const priorityClass = props.object as PriorityClass;
 
-  render() {
-    const { object: pc } = this.props;
+  return (
+    <div className="PriorityClassesDetails">
+      <DrawerItem name="Description">
+        {priorityClass.getDescription()}
+      </DrawerItem>
 
-    return (
-      <div className="PriorityClassesDetails">
-        <DrawerItem name="Description">
-          {pc.getDescription()}
-        </DrawerItem>
+      <DrawerItem name="Value">
+        {priorityClass.getValue()}
+      </DrawerItem>
 
-        <DrawerItem name="Value">
-          {pc.getValue()}
-        </DrawerItem>
-
-        <DrawerItem name="Global Default">
-          {pc.getGlobalDefault()}
-        </DrawerItem>
-
-      </div>
-    );
-  }
-}
+      <DrawerItem name="Global Default">
+        {priorityClass.getGlobalDefault()}
+      </DrawerItem>
+    </div>
+  );
+});
