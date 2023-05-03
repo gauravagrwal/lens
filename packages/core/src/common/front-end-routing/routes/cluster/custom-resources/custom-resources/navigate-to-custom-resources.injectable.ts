@@ -3,19 +3,20 @@
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
 import { getInjectable } from "@ogre-tools/injectable";
-import type { CustomResourcesPathParameters } from "./custom-resources-route.injectable";
 import customResourcesRouteInjectable from "./custom-resources-route.injectable";
+import type { NavigateToSpecificRoute } from "../../../../navigate-to-route-injection-token";
 import { navigateToRouteInjectionToken } from "../../../../navigate-to-route-injection-token";
+
+export type NavigateToCustomResources = NavigateToSpecificRoute<typeof customResourcesRouteInjectable>;
 
 const navigateToCustomResourcesInjectable = getInjectable({
   id: "navigate-to-custom-resources",
 
-  instantiate: (di) => {
+  instantiate: (di): NavigateToCustomResources => {
     const navigateToRoute = di.inject(navigateToRouteInjectionToken);
     const route = di.inject(customResourcesRouteInjectable);
 
-    return (parameters?: CustomResourcesPathParameters) =>
-      navigateToRoute(route, { parameters });
+    return (parameters) => navigateToRoute(route, { parameters });
   },
 });
 

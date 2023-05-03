@@ -123,7 +123,10 @@ export function isDefined<T>(val: T | undefined | null): val is T {
   return val != null;
 }
 
-export function isFunction(val: unknown): val is (...args: unknown[]) => unknown {
+type ExtractOr<T, U, Fallback = never> = T extends U ? T : Fallback;
+
+// @ts-expect-error 2677
+export function isFunction<T>(val: T): val is ExtractOr<T, Function, (...args: unknown[]) => unknown> {
   return typeof val === "function";
 }
 
