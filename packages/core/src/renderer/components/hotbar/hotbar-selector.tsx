@@ -72,7 +72,8 @@ const NonInjectedHotbarSelector = observer(({
       <Icon
         material="arrow_left"
         className={cssNames(styles.Icon)}
-        onClick={onPrevClick}/>
+        onClick={onPrevClick}
+      />
       <div className={styles.HotbarIndex}>
         <Badge
           id="hotbarIndex"

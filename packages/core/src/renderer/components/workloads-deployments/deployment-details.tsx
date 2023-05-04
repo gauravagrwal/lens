@@ -106,7 +106,8 @@ class NonInjectedDeploymentDetails extends React.Component<DeploymentDetailsProp
                         {`Last transition time: ${lastTransitionTime ?? "<unknown>"}`}
                       </p>
                     </>
-                  )} />
+                  )}
+                />
               ))
           }
         </DrawerItem>
