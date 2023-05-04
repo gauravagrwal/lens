@@ -37,10 +37,6 @@ class NonInjectedPersistentVolumeClaimDetails extends React.Component<Persistent
   render() {
     const { object: volumeClaim, podStore, getDetailsUrl, storageClassApi, logger } = this.props;
 
-    if (!volumeClaim) {
-      return null;
-    }
-
     if (!(volumeClaim instanceof PersistentVolumeClaim)) {
       logger.error("[PersistentVolumeClaimDetails]: passed object that is not an instanceof PersistentVolumeClaim", volumeClaim);
 

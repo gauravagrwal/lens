@@ -70,7 +70,7 @@ class NonInjectedSidebarItem extends React.Component<
     }
 
     return (
-      <ul className={cssNames(styles.subMenu, { [styles.active]: this.isActive })}>
+      <ul className={cssNames(styles.subMenu, this.isActive && styles.active)}>
         {this.props.item.children.map(item => <SidebarItem key={item.id} item={item} />)}
       </ul>
     );

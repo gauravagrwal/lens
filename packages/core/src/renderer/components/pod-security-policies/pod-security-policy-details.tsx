@@ -59,10 +59,6 @@ class NonInjectedPodSecurityPolicyDetails extends React.Component<PodSecurityPol
   render() {
     const { object: psp } = this.props;
 
-    if (!psp) {
-      return null;
-    }
-
     if (!(psp instanceof PodSecurityPolicy)) {
       this.props.logger.error("[PodSecurityPolicyDetails]: passed object that is not an instanceof PodSecurityPolicy", psp);
 

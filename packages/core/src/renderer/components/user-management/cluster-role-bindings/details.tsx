@@ -70,10 +70,6 @@ class NonInjectedClusterRoleBindingDetails extends React.Component<ClusterRoleBi
   render() {
     const { selectedSubjects } = this;
     const { object: clusterRoleBinding, openClusterRoleBindingDialog } = this.props;
-
-    if (!clusterRoleBinding) {
-      return null;
-    }
     const { roleRef } = clusterRoleBinding;
     const subjects = clusterRoleBinding.getSubjects();
 

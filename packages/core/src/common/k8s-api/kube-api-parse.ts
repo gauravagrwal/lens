@@ -25,12 +25,17 @@ export interface IKubeApiParsed extends IKubeApiLinkRef {
 export function parseKubeApi(path: string): IKubeApiParsed | undefined {
   const apiPath = new URL(path, "https://localhost").pathname;
   const [, prefix, ...parts] = apiPath.split("/");
+
+  if (!prefix) {
+    return undefined;
+  }
+
   const apiPrefix = `/${prefix}`;
   const [left, right, namespaced] = array.split(parts, "namespaces");
-  let apiGroup: string;
+  let apiGroup: string | undefined;
   let apiVersion: string | undefined;
   let namespace: string | undefined;
-  let resource: string;
+  let resource: string | undefined;
   let name: string | undefined;
 
   if (namespaced) {
@@ -77,7 +82,7 @@ export function parseKubeApi(path: string): IKubeApiParsed | undefined {
        * 3. otherwise assume apiVersion <- left[0]
        * 4. always resource, name <- left[(0 or 1)+1..]
        */
-      if (left[0].includes(".") || left[1].match(/^v[0-9]/)) {
+      if (left[0]?.includes(".") || left[1]?.match(/^v[0-9]/)) {
         [apiGroup, apiVersion] = left;
         resource = left.slice(2).join("/");
       } else {
@@ -91,7 +96,7 @@ export function parseKubeApi(path: string): IKubeApiParsed | undefined {
   const apiVersionWithGroup = [apiGroup, apiVersion].filter(v => v).join("/");
   const apiBase = [apiPrefix, apiGroup, apiVersion, resource].filter(v => v).join("/");
 
-  if (!apiBase) {
+  if (!apiBase || !apiGroup || !apiVersion || !resource) {
     return undefined;
   }
 

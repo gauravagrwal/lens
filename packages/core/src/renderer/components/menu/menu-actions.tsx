@@ -8,7 +8,7 @@ import "./menu-actions.scss";
 import React, { isValidElement } from "react";
 import { observable, makeObservable, reaction } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
-import { cssNames, isFunction } from "@k8slens/utilities";
+import { cssNames, isFunction, isTruthy } from "@k8slens/utilities";
 import type { IconProps } from "../icon";
 import { Icon } from "../icon";
 import type { MenuProps } from "./menu";
@@ -120,7 +120,7 @@ class NonInjectedMenuActions extends React.Component<MenuActionsProps & Dependen
       iconProps["data-testid"] = `icon-for-${dataTestId}`;
     }
 
-    if (iconProps.tooltip && this.isOpen) {
+    if (isTruthy(iconProps.tooltip) && this.isOpen) {
       delete iconProps.tooltip; // don't show tooltip for icon when menu is open
     }
 

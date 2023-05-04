@@ -7,7 +7,7 @@ import "./table.scss";
 
 import React from "react";
 import { observer } from "mobx-react";
-import { cssNames, isDefined } from "@k8slens/utilities";
+import { cssNames, isDefined, isTruthy } from "@k8slens/utilities";
 import type { TableRowElem, TableRowProps } from "./table-row";
 import { TableRow } from "./table-row";
 import type { TableHeadElem } from "./table-head";
@@ -178,11 +178,13 @@ class NonInjectedTable<Item extends ItemObject> extends React.Component<TablePro
           if (elem.props.checkbox) {
             return elem;
           }
-          const title = elem.props.title || (
-            // copy cell content to title if it's a string
-            // usable if part of TableCell's content is hidden when there is not enough space
-            typeof elem.props.children === "string" ? elem.props.children : undefined
-          );
+          const title = isTruthy(elem.props.title)
+            ? elem.props.title
+            : (
+              // copy cell content to title if it's a string
+              // usable if part of TableCell's content is hidden when there is not enough space
+              typeof elem.props.children === "string" ? elem.props.children : undefined
+            );
 
           return React.cloneElement(elem, {
             title,
@@ -266,7 +268,7 @@ class NonInjectedTable<Item extends ItemObject> extends React.Component<TablePro
       }
     }
 
-    if (!rows.length && !items.length && noItems) {
+    if (!rows.length && !items.length && isTruthy(noItems)) {
       return noItems;
     }
 

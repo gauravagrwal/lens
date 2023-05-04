@@ -30,10 +30,6 @@ class NonInjectedCRDDetails extends React.Component<CRDDetailsProps & Dependenci
   render() {
     const { object: crd } = this.props;
 
-    if (!crd) {
-      return null;
-    }
-
     if (!(crd instanceof CustomResourceDefinition)) {
       this.props.logger.error("[CRDDetails]: passed object that is not an instanceof CustomResourceDefinition", crd);
 

@@ -47,10 +47,6 @@ class NonInjectedPodDetails extends React.Component<PodDetailsProps & Dependenci
   render() {
     const { object: pod, getDetailsUrl, nodeApi, logger } = this.props;
 
-    if (!pod) {
-      return null;
-    }
-
     if (!(pod instanceof Pod)) {
       logger.error("[PodDetails]: passed object that is not an instanceof Pod", pod);
 

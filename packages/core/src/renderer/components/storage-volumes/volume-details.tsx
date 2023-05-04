@@ -43,10 +43,6 @@ class NonInjectedPersistentVolumeDetails extends React.Component<PersistentVolum
       persistentVolumeClaimApi,
     } = this.props;
 
-    if (!volume) {
-      return null;
-    }
-
     if (!(volume instanceof PersistentVolume)) {
       logger.error("[PersistentVolumeDetails]: passed object that is not an instanceof PersistentVolume", volume);
 

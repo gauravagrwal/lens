@@ -77,10 +77,6 @@ class NonInjectedDockTab extends React.Component<DockTabProps & Dependencies> {
   render() {
     const { className, moreActions, dockStore, active, isMac, ...tabProps } = this.props;
 
-    if (!tabProps.value) {
-      return;
-    }
-
     void dockStore;
     void active;
     void isMac;
@@ -93,9 +89,11 @@ class NonInjectedDockTab extends React.Component<DockTabProps & Dependencies> {
         <Tab
           {...tabProps}
           id={`tab-${id}`}
-          className={cssNames(styles.DockTab, className, {
-            [styles.pinned]: pinned,
-          })}
+          className={cssNames(
+            styles.DockTab,
+            className,
+            pinned && styles.pinned,
+          )}
           onContextMenu={() => this.menuVisible.set(true)}
           label={(
             <div className="flex align-center" onAuxClick={isMiddleClick(close)}>

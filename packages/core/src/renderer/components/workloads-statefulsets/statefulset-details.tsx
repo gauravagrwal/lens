@@ -47,10 +47,6 @@ class NonInjectedStatefulSetDetails extends React.Component<StatefulSetDetailsPr
   render() {
     const { object: statefulSet, statefulSetStore, logger } = this.props;
 
-    if (!statefulSet) {
-      return null;
-    }
-
     if (!(statefulSet instanceof StatefulSet)) {
       logger.error("[StatefulSetDetails]: passed object that is not an instanceof StatefulSet", statefulSet);
 

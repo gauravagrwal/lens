@@ -8,10 +8,10 @@ import joinPathsInjectable from "../../../common/path/join-paths.injectable";
 import staticFilesDirectoryInjectable from "../../../common/vars/static-files-directory.injectable";
 import type { LensApiRequest } from "../../router/route";
 import path from "path";
-import type { SupportedFileExtension } from "../../router/router-content-types";
 import { contentTypes } from "../../router/router-content-types";
 import { loggerInjectionToken } from "@k8slens/logger";
 import { publicPath } from "../../../common/vars";
+import { maybeGet } from "@k8slens/utilities";
 
 const prodStaticFileRouteHandlerInjectable = getInjectable({
   id: "prod-static-file-route-handler",
@@ -35,9 +35,9 @@ const prodStaticFileRouteHandlerInjectable = getInjectable({
         try {
           const fileExtension = path
             .extname(assetFilePath)
-            .slice(1) as SupportedFileExtension;
+            .slice(1);
 
-          const contentType = contentTypes[fileExtension] || contentTypes.txt;
+          const contentType = maybeGet(contentTypes, fileExtension) || contentTypes.txt;
 
           return { response: await readFileBuffer(assetFilePath), contentType };
         } catch (err) {

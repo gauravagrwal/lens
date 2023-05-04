@@ -85,10 +85,6 @@ class NonInjectedResourceQuotaDetails extends React.Component<ResourceQuotaDetai
   render() {
     const { object: quota } = this.props;
 
-    if (!quota) {
-      return null;
-    }
-
     if (!(quota instanceof ResourceQuota)) {
       this.props.logger.error("[ResourceQuotaDetails]: passed object that is not an instanceof ResourceQuota", quota);
 

@@ -77,13 +77,11 @@ class NonInjectedServiceAccountsDetails extends React.Component<ServiceAccountsD
   }
 
   renderSecrets() {
-    const { secrets } = this;
-
-    if (!secrets) {
+    if (this.secrets.length === 0) {
       return <Spinner center/>;
     }
 
-    return secrets.map(secret => (
+    return this.secrets.map(secret => (
       <ServiceAccountsSecret
         key={typeof secret === "string" ? secret : secret.getName()}
         secret={secret}
@@ -92,13 +90,11 @@ class NonInjectedServiceAccountsDetails extends React.Component<ServiceAccountsD
   }
 
   renderImagePullSecrets() {
-    const { imagePullSecrets } = this;
-
-    if (!imagePullSecrets) {
+    if (this.imagePullSecrets.length === 0) {
       return <Spinner center/>;
     }
 
-    return this.renderSecretLinks(imagePullSecrets);
+    return this.renderSecretLinks(this.imagePullSecrets);
   }
 
   renderSecretLinks(secrets: (Secret | string)[]) {
@@ -126,10 +122,6 @@ class NonInjectedServiceAccountsDetails extends React.Component<ServiceAccountsD
 
   render() {
     const { object: serviceAccount, secretStore } = this.props;
-
-    if (!serviceAccount) {
-      return null;
-    }
     const tokens = secretStore.items.filter(secret =>
       secret.getNs() == serviceAccount.getNs() &&
       secret.getAnnotations().some(annot => annot == `kubernetes.io/service-account.name: ${serviceAccount.getName()}`),

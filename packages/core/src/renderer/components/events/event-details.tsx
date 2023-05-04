@@ -38,10 +38,6 @@ const NonInjectedEventDetails = observer(({
   className,
   logger,
 }: Dependencies & EventDetailsProps) => {
-  if (!event) {
-    return null;
-  }
-
   if (!(event instanceof KubeEvent)) {
     logger.error("[EventDetails]: passed object that is not an instanceof KubeEvent", event);
 

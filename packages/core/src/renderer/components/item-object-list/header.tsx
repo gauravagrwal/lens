@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 import React from "react";
 import { observer } from "mobx-react";
 import type { IClassName } from "@k8slens/utilities";
-import { isFunction, cssNames, isDefined } from "@k8slens/utilities";
+import { isTruthy, isFunction, cssNames, isDefined } from "@k8slens/utilities";
 import type { ItemObject } from "@k8slens/list-layout";
 import type { Filter } from "./page-filters/store";
 import type { HeaderCustomizer, HeaderPlaceholders, ItemListStore, SearchFilter } from "./list-layout";
@@ -92,7 +92,7 @@ export class ItemListLayoutHeader<I extends ItemObject, PreLoadStores extends bo
       <div className={cssNames("header flex gaps align-center", headerClassName)}>
         {title}
         {
-          info && (
+          isTruthy(info) && (
             <div className="info-panel box grow">
               {info}
             </div>

@@ -63,10 +63,6 @@ class NonInjectedRoleBindingDetails extends React.Component<RoleBindingDetailsPr
   render() {
     const { selectedSubjects } = this;
     const { object: roleBinding, openRoleBindingDialog } = this.props;
-
-    if (!roleBinding) {
-      return null;
-    }
     const { roleRef } = roleBinding;
     const subjects = roleBinding.getSubjects();
 

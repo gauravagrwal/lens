@@ -55,10 +55,6 @@ class NonInjectedServiceDetails extends React.Component<ServiceDetailsProps & De
   render() {
     const { object: service, endpointsStore } = this.props;
 
-    if (!service) {
-      return null;
-    }
-
     if (!(service instanceof Service)) {
       this.props.logger.error("[ServiceDetails]: passed object that is not an instanceof Service", service);
 

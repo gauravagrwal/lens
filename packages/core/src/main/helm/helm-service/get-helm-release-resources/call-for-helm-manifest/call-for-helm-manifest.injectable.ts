@@ -37,7 +37,7 @@ const callForHelmManifestInjectable = getInjectable({
         isOk: true,
         value: yaml
           .loadAll(result.value)
-          .filter((manifest) => !!manifest) as KubeJsonApiData[],
+          .filter((manifest) => Boolean(manifest)) as KubeJsonApiData[],
       };
     };
 

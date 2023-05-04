@@ -2,6 +2,7 @@
  * Copyright (c) OpenLens Authors. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
+import { isDefined } from "@k8slens/utilities";
 import type { LensApiResult } from "./route";
 
 export interface LensApiResultContentType {
@@ -14,9 +15,9 @@ export interface LensApiResultContentType {
 
 const resultMapperFor =
   (contentType: string): LensApiResultContentType["resultMapper"] =>
-    ({ response, error, statusCode= error ? 400 : 200, headers = {}}) => ({
+    ({ response, error, statusCode = isDefined(error) ? 200 : 400, headers = {}}) => ({
       statusCode,
-      content: error || response,
+      content: isDefined(error) ? error : response,
       headers: { ...headers, "Content-Type": contentType },
     });
 

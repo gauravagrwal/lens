@@ -29,62 +29,60 @@ const extensionSidebarItemRegistratorInjectable = getInjectable({
       id: `sidebar-items-for-extension-${extension.sanitizedExtensionId}`,
       injectionToken: sidebarItemsInjectionToken,
 
-      instantiate: (di) => {
-        return computed(() => {
-          const extensionRoutes = routes.get().filter(matches({ extension }));
+      instantiate: (di) => computed(() => {
+        const extensionRoutes = routes.get().filter(matches({ extension }));
 
-          return extension.clusterPageMenus.map((registration) => {
-            const targetRoutePath = getExtensionRoutePath(
-              extension,
-              registration.target?.pageId,
-            );
+        return extension.clusterPageMenus.map((registration) => {
+          const targetRoutePath = getExtensionRoutePath(
+            extension,
+            registration.target?.pageId,
+          );
 
-            const targetRoute = extensionRoutes.find(
-              matches({ path: targetRoutePath }),
-            );
+          const targetRoute = extensionRoutes.find(
+            matches({ path: targetRoutePath }),
+          );
 
-            const isVisible = computed(() => {
-              if (!extensionShouldBeEnabledForClusterFrame.value.get()) {
-                return false;
-              }
+          const isVisible = computed(() => {
+            if (!extensionShouldBeEnabledForClusterFrame.value.get()) {
+              return false;
+            }
 
-              if (!registration.visible) {
-                return true;
-              }
+            if (!registration.visible) {
+              return true;
+            }
 
-              return registration.visible.get();
-            });
-
-            const res: SidebarItemRegistration = {
-              id: `${extension.sanitizedExtensionId}-${registration.id ?? ""}`,
-              orderNumber: registration.orderNumber ?? 9999,
-
-              parentId: registration.parentId
-                ? `${extension.sanitizedExtensionId}-${registration.parentId}`
-                : null,
-
-              isVisible,
-
-              title: registration.title,
-              getIcon: registration.components.Icon
-                ? () => <registration.components.Icon />
-                : undefined,
-              ...(targetRoute
-                ? {
-                  onClick: () => navigateToRoute(targetRoute),
-
-                  isActive: di.inject(
-                    routeIsActiveInjectable,
-                    targetRoute,
-                  ),
-                }
-                : { onClick: noop }),
-            };
-
-            return res;
+            return registration.visible.get();
           });
+
+          const res: SidebarItemRegistration = {
+            id: `${extension.sanitizedExtensionId}-${registration.id ?? ""}`,
+            orderNumber: registration.orderNumber ?? 9999,
+
+            parentId: registration.parentId
+              ? `${extension.sanitizedExtensionId}-${registration.parentId}`
+              : null,
+
+            isVisible,
+
+            title: registration.title,
+            getIcon: (registration.components.Icon as typeof registration.components.Icon | undefined)
+              ? () => <registration.components.Icon />
+              : undefined,
+            ...(targetRoute
+              ? {
+                onClick: () => navigateToRoute(targetRoute),
+
+                isActive: di.inject(
+                  routeIsActiveInjectable,
+                  targetRoute,
+                ),
+              }
+              : { onClick: noop }),
+          };
+
+          return res;
         });
-      },
+      }),
     });
 
     return [

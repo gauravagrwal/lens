@@ -72,10 +72,6 @@ class NonInjectedNamespaceDetails extends React.Component<NamespaceDetailsProps 
   render() {
     const { object: namespace, resourceQuotaStore, getDetailsUrl, limitRangeStore } = this.props;
 
-    if (!namespace) {
-      return null;
-    }
-
     if (!(namespace instanceof Namespace)) {
       this.props.logger.error("[NamespaceDetails]: passed object that is not an instanceof Namespace", namespace);
 
@@ -91,7 +87,7 @@ class NonInjectedNamespaceDetails extends React.Component<NamespaceDetailsProps 
         </DrawerItem>
 
         <DrawerItem name="Resource Quotas" className="quotas flex align-center">
-          {!this.quotas && resourceQuotaStore.isLoading && <Spinner/>}
+          {(this.quotas.length === 0 && resourceQuotaStore.isLoading) && <Spinner/>}
           {this.quotas.map(quota => quota.selfLink && (
             <Link key={quota.getId()} to={getDetailsUrl(quota.selfLink)}>
               {quota.getName()}
@@ -99,7 +95,7 @@ class NonInjectedNamespaceDetails extends React.Component<NamespaceDetailsProps 
           ))}
         </DrawerItem>
         <DrawerItem name="Limit Ranges">
-          {!this.limitranges && limitRangeStore.isLoading && <Spinner/>}
+          {(this.limitranges.length === 0 && limitRangeStore.isLoading) && <Spinner/>}
           {this.limitranges.map(limitrange => limitrange.selfLink && (
             <Link key={limitrange.getId()} to={getDetailsUrl(limitrange.selfLink)}>
               {limitrange.getName()}

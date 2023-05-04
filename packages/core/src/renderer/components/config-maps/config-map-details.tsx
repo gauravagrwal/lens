@@ -46,9 +46,7 @@ class NonInjectedConfigMapDetails extends React.Component<ConfigMapDetailsProps 
       autorun(() => {
         const { object: configMap } = this.props;
 
-        if (configMap) {
-          this.data.replace(configMap.data); // refresh
-        }
+        this.data.replace(configMap.data); // refresh
       }),
     ]);
   }
@@ -80,10 +78,6 @@ class NonInjectedConfigMapDetails extends React.Component<ConfigMapDetailsProps 
 
   render() {
     const { object: configMap, logger } = this.props;
-
-    if (!configMap) {
-      return null;
-    }
 
     if (!(configMap instanceof ConfigMap)) {
       logger.error("[ConfigMapDetails]: passed object that is not an instanceof ConfigMap", configMap);

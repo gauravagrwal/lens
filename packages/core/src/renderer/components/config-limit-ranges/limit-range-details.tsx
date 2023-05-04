@@ -61,10 +61,6 @@ class NonInjectedLimitRangeDetails extends React.Component<LimitRangeDetailsProp
   render() {
     const { object: limitRange, logger } = this.props;
 
-    if (!limitRange) {
-      return null;
-    }
-
     if (!(limitRange instanceof LimitRange)) {
       logger.error("[LimitRangeDetails]: passed object that is not an instanceof LimitRange", limitRange);
 
