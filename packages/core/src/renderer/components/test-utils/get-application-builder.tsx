@@ -424,7 +424,7 @@ export const getApplicationBuilder = () => {
         return getCompositePaths(composite);
       },
 
-      click: (...path: string[]) => {
+      click: (...path: [string, ...string[]]) => {
         const composite = mainDi.inject(
           applicationMenuItemCompositeInjectable,
         ).get();

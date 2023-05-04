@@ -7,6 +7,7 @@ import { storesAndApisCanBeCreatedInjectionToken } from "../stores-apis-can-be-c
 import { ClusterRoleBindingApi } from "./cluster-role-binding.api";
 import { loggerInjectionToken } from "@k8slens/logger";
 import { getKubeApiInjectable } from "../kube-api/kube-api-injection-token";
+import maybeKubeApiInjectable from "../maybe-kube-api.injectable";
 
 const clusterRoleBindingApiInjectable = getKubeApiInjectable({
   id: "cluster-role-binding-api",

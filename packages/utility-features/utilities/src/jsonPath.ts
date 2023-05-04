@@ -40,7 +40,7 @@ export function convertKubectlJsonPathToNodeJsonPath(jsonPath: string) {
   let { pathExpression } = captures;
 
   if (pathExpression.match(slashDashSearch)) {
-    const [first, ...rest] = pathExpression.split(pathByBareDots);
+    const [first, ...rest] = pathExpression.split(pathByBareDots) as [string, ...string[]];
 
     pathExpression = `${convertToIndexNotation(first, true)}${rest.map(value => convertToIndexNotation(value)).join("")}`;
   }
@@ -95,7 +95,7 @@ export function formatJSONValue(value: unknown): string {
 /**
  * This function is a safer version of `JSONPath.value(obj, path)` with untrusted jsonpath strings
  *
- * This function will also stringify the value retreived from the object
+ * This function will also stringify the value retrieved from the object
  */
 export function safeJSONPathValue(obj: object, path: string): unknown {
   try {

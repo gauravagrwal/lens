@@ -7,11 +7,11 @@ import styles from "./cluster-metrics.module.scss";
 
 import React, { useState } from "react";
 import { observer } from "mobx-react";
-import type { ChartOptions, ChartPoint } from "chart.js";
+import type { ChartOptions } from "chart.js";
 import type { ClusterOverviewStore } from "./cluster-overview-store/cluster-overview-store";
 import { MetricType } from "./cluster-overview-store/cluster-overview-store";
 import { BarChart } from "../chart";
-import { bytesToUnits, cssNames } from "@k8slens/utilities";
+import { bytesToUnits, cssNames, isArray, isObject } from "@k8slens/utilities";
 import { Spinner } from "../spinner";
 import { ZebraStripesPlugin } from "../chart/zebra-stripes.plugin";
 import { ClusterNoMetrics } from "./cluster-no-metrics";
@@ -56,7 +56,11 @@ const NonInjectedClusterMetrics = observer(({ clusterOverviewStore: { metricType
             return "<unknown>";
           }
 
-          const value = data.datasets?.[0].data?.[index] as ChartPoint;
+          const value = data.datasets?.[0]?.data?.[index];
+
+          if (!isObject(value) || isArray(value)) {
+            return "<unknown>";
+          }
 
           return value.y?.toString() ?? "<unknown>";
         },
@@ -79,7 +83,11 @@ const NonInjectedClusterMetrics = observer(({ clusterOverviewStore: { metricType
             return "<unknown>";
           }
 
-          const value = data.datasets?.[0].data?.[index] as ChartPoint;
+          const value = data.datasets?.[0]?.data?.[index];
+
+          if (!isObject(value) || isArray(value)) {
+            return "<unknown>";
+          }
 
           return bytesToUnits(parseInt(value.y as string), { precision: 3 });
         },

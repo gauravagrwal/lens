@@ -27,8 +27,8 @@ const NonInjectedClusterMetricSwitchers = observer(({
   const { cpuUsage, memoryUsage } = clusterOverviewStore.metrics ?? {};
   const hasMasterNodes = masterNodes.length > 0;
   const hasWorkerNodes = workerNodes.length > 0;
-  const hasCpuMetrics = normalizeMetrics(cpuUsage).data.result[0].values.length > 0;
-  const hasMemoryMetrics = normalizeMetrics(memoryUsage).data.result[0].values.length > 0;
+  const hasCpuMetrics = (normalizeMetrics(cpuUsage).data.result[0]?.values.length ?? 0) > 0;
+  const hasMemoryMetrics = (normalizeMetrics(memoryUsage).data.result[0]?.values.length ?? 0) > 0;
 
   return (
     <div className="flex gaps" style={{ marginBottom: "calc(var(--margin) * 2)" }}>
