@@ -22,14 +22,9 @@
         "^build"
       ]
     },
-    "dev": {
-      "dependsOn": [
-        "prepare:dev"
-      ]
-    },
     "lint": {
       "dependsOn": [
-        "^prepare:test"
+        "^build"
       ]
     },
     "test:unit": {
